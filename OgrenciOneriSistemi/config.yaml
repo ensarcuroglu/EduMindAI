@@ -1,0 +1,22 @@
+paths:
+  raw_csv: "D:/Ensar Dosya/OgrenciOneriSistemi/data/student_habits_performance.csv"
+  processed_dir: "D:/Ensar Dosya/OgrenciOneriSistemi/data/processed"
+  npz: "D:/Ensar Dosya/OgrenciOneriSistemi/data/processed/student_features_train_test.npz"
+  preprocessor: "D:/Ensar Dosya/OgrenciOneriSistemi/data/processed/preprocessor.joblib"
+  best_model: "D:/Ensar Dosya/OgrenciOneriSistemi/data/processed/best_model.joblib"
+  report_json: "D:/Ensar Dosya/OgrenciOneriSistemi/data/processed/best_model_meta.json"
+
+train:
+  cv_folds: 5
+  scoring: "neg_mean_absolute_error"
+
+models:
+  use: ["LinearRegression", "RidgeCV", "LassoCV", "ElasticNetCV", "HistGBR"]
+  ridge_alphas: [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30, 100, 300, 1000]
+  lasso_alphas: [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10]
+  en_l1_ratio: [0.2, 0.4, 0.6, 0.8, 1.0]
+  hgb_params:
+    max_depth: null
+    learning_rate: 0.05
+    max_iter: 800
+    random_state: 42

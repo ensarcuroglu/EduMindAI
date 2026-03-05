@@ -1,0 +1,30 @@
+{
+    "status": "success",
+    "target_score": 60.0,
+    "achieved_score": 61.153564453125,
+    "original_score": 55.61,
+    "required_changes": [
+        "📈 Study Hours Per Day: 1.0 -> 1.5 (+0.5)",
+        "📉 Social Media Hours: 0.6 -> 0.0 (-0.6)",
+        "📈 Sleep Hours: 5.6 -> 6.0 (+0.4)"
+    ],
+    "mentor_message": "Merhaba S1016, potansiyelinin çok yüksek olduğunu biliyoruz! Günde 1.5 saat ders çalışmaya başlayıp sosyal medyaya ara verdiğinde, mevcut 6 saatlik uyku düzeninle birlikte performansının nasıl hızla yükseleceğini göreceksin. Sakın pes etme, bu adımlarla başarı seninle olacak! 💪",
+    "optimized_values": {
+        "student_id": "S1016",
+        "age": 20,
+        "gender": "Male",
+        "study_hours_per_day": 1.5,
+        "social_media_hours": 0.0,
+        "netflix_hours": 0.2,
+        "part_time_job": "No",
+        "attendance_percentage": 92.9,
+        "sleep_hours": 6.0,
+        "diet_quality": "Poor",
+        "exercise_frequency": 3,
+        "parental_education_level": "High School",
+        "internet_quality": "Poor",
+        "mental_health_rating": 8,
+        "extracurricular_participation": "Yes",
+        "exam_score": 55.2
+    }
+}

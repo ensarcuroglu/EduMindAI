@@ -1,0 +1,11 @@
+Tablo 4.1. XGBoost Modeli Performans Metrikleri
+============================================================
+Metrik          | Eğitim Seti (Train)  | Test Seti (Test)    
+------------------------------------------------------------
+RMSE            | 3.6057               | 5.1652              
+MAE             | 2.8662               | 4.1712              
+R² (R-Kare)     | 0.9554               | 0.8960              
+------------------------------------------------------------
+
+Genelleştirme Farkı (Train R2 - Test R2): 0.0595
+SONUÇ: Modelde hafif aşırı öğrenme eğilimi olabilir.

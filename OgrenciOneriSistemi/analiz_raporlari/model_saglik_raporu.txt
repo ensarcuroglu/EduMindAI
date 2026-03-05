@@ -1,0 +1,15 @@
+============================================================
+🏥 AI STUDENT COACH - MODEL SAĞLIK RAPORU
+============================================================
+1. BIAS-VARIANCE ANALİZİ (Öğrenme Eğrisi):
+   - Son Eğitim Hatası (RMSE)   : 3.5981
+   - Son Doğrulama Hatası (RMSE): 5.5625
+   - Fark (Gap)                 : 1.9644
+   -> YORUM: Fark düşük. Model 'Genelleştirme' (Generalization) konusunda başarılı.
+   -> Overfitting (Ezberleme) belirtisi yok.
+
+2. İSTATİSTİKSEL GEÇERLİLİK (Residuals):
+   - Hata dağılımı (Q-Q Plot) 45 derecelik çizgi üzerindeyse,
+     modelin hataları Normal Dağılıma uygundur.
+   - Residuals grafiğinde rastgele saçılım varsa model başarılıdır.
+   - Herhangi bir 'U' şekli veya huni şekli (Heteroscedasticity) yoksa güvenilirdir.

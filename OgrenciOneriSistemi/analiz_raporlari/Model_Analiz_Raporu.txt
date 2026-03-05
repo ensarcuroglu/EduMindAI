@@ -1,0 +1,65 @@
+
+██████████████████████████████████████████████████
+📊 PROFESYONEL PERFORMANS RAPORU
+██████████████████████████████████████████████████
+► R2 (Açıklayıcılık) : 0.9415 ✅ Mükemmel
+► RMSE (Hata Karekök) : 4.08
+► MAE (Ort. Mutlak Hata): 3.24
+► MedAE (Medyan Hata)   : 2.71 (Bu değer MAE'den düşükse, hata uç değerlerden kaynaklıdır)
+► Güven Aralığı (%95)   : +/- 7.99 Puan
+--------------------------------------------------
+
+⚖️ ADALET VE ÖNYARGI ANALİZİ (FAIRNESS CHECK)
+--------------------------------------------------
+📌 GENDER Bazlı Hata Analizi:
+   - Other                    : 2.76 MAE
+   - Male                     : 3.21 MAE
+   - Female                   : 3.31 MAE
+   ✅ Dengeli dağılım.
+
+📌 PART_TIME_JOB Bazlı Hata Analizi:
+   - Yes                      : 3.19 MAE
+   - No                       : 3.25 MAE
+   ✅ Dengeli dağılım.
+
+📌 DIET_QUALITY Bazlı Hata Analizi:
+   - Fair                     : 3.21 MAE
+   - Good                     : 3.25 MAE
+   - Poor                     : 3.27 MAE
+   ✅ Dengeli dağılım.
+
+📌 PARENTAL_EDUCATION_LEVEL Bazlı Hata Analizi:
+   - Bachelor                 : 3.22 MAE
+   - Master                   : 3.23 MAE
+   - High School              : 3.27 MAE
+   ✅ Dengeli dağılım.
+
+📌 INTERNET_QUALITY Bazlı Hata Analizi:
+   - Good                     : 3.14 MAE
+   - Poor                     : 3.30 MAE
+   - Average                  : 3.32 MAE
+   ✅ Dengeli dağılım.
+
+📌 EXTRACURRICULAR_PARTICIPATION Bazlı Hata Analizi:
+   - Yes                      : 3.24 MAE
+   - No                       : 3.24 MAE
+   ✅ Dengeli dağılım.
+
+
+🚨 UÇ NOKTA ANALİZİ (CORNER CASES)
+--------------------------------------------------
+🔻 MODELİN AŞIRI İYİMSER OLDUĞU DURUMLAR (Tahmin > Gerçek):
+ Actual  Predicted     Error  study_hours_per_day  sleep_hours  attendance_percentage
+   53.0  40.738335 12.261665                  0.0          7.1                   87.0
+   93.1  81.818443 11.281557                  4.7          4.9                   71.2
+   87.8  76.603874 11.196126                  4.6          6.9                   75.2
+   89.6  78.452911 11.147089                  4.7          8.4                   86.4
+   73.5  63.007324 10.492676                  2.0          6.5                   83.8
+
+🔻 MODELİN AŞIRI KÖTÜMSER OLDUĞU DURUMLAR (Tahmin < Gerçek):
+ Actual  Predicted      Error  study_hours_per_day  sleep_hours  attendance_percentage
+   71.4  86.468201 -15.068201                  5.9          4.9                   89.0
+   71.1  84.794823 -13.694823                  4.5          7.8                   86.1
+   28.0  39.400593 -11.400593                  1.2          4.9                   97.7
+   18.4  29.165272 -10.765272                  0.6          5.2                   79.9
+   75.4  85.655525 -10.255525                  5.0          6.8                   78.9

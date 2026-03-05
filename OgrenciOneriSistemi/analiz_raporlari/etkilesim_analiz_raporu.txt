@@ -1,0 +1,17 @@
+============================================================
+🌌 AI STUDENT COACH - ETKİLEŞİM ANALİZİ (PDP)
+============================================================
+Amaç: 'Çalışma Saati' ve 'Uyku' değişkenlerinin başarı üzerindeki
+ortak (sinerjik) etkisini doğrusal olmayan yöntemlerle analiz etmek.
+------------------------------------------------------------
+🔍 ANALİZ BULGULARI:
+1. Optimum Nokta (Sweet Spot):
+   - Çalışma: 9.3 Saat
+   - Uyku   : 9.0 Saat
+   - Puan   : 102.20
+
+2. Yorum:
+   Grafik yüzeyindeki eğim, çalışmanın başarıyı artırdığını gösterse de,
+   uyku süresinin belirli bir seviyenin (6 saat) altına düştüğü bölgelerde
+   verimin 'kırıldığı' (Plateau Effect) gözlemlenmiştir.
+   Bu durum, projenin 'Zombi Bariyeri' hipotezini doğrulamaktadır.

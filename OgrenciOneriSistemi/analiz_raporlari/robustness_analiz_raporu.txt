@@ -1,0 +1,26 @@
+============================================================
+🛡️  AI STUDENT COACH - DUYARLILIK VE KARARLILIK RAPORU
+============================================================
+Analiz Tarihi: 2025-12-25 05:10
+Uygulanan Gürültü (Noise) Oranı: %10
+Test Edilen Model: XGBoost Hibrit V2.0
+------------------------------------------------------------
+METRİK AÇIKLAMASI:
+• Mean Deviation (Ort. Sapma): Girdi hatalı olduğunda notun kaç puan şaştığı.
+• Sensitivity (Duyarlılık): Sapmanın toplam nota oranı (%).
+• Robustness (Kararlılık): Sapma ne kadar düşükse, model o kadar kararlıdır.
+------------------------------------------------------------
+
+ÖZELLİK (FEATURE)              | SAPMA (PUAN)    | DUYARLILIK (%) 
+------------------------------------------------------------------
+study_hours_per_day            | 1.1173          | %1.61          
+mental_health_rating           | 0.5039          | %0.73          
+social_media_hours             | 0.2664          | %0.38          
+sleep_hours                    | 0.1969          | %0.28          
+attendance_percentage          | 0.1474          | %0.21          
+
+============================================================
+📋 AKADEMİK YORUM VE SONUÇ:
+1. En Yüksek Duyarlılık: Model, 'study_hours_per_day' değişkenindeki değişimlere en fazla tepkiyi vermektedir.
+2. Kararlılık Testi: %10'luk veri bozulmasında ortalama sapma 1.12 puanda kalmıştır.
+3. SONUÇ: Model Gürültüye Karşı 'DAYANIKLIDIR' (Robust). Sapma marjı kabul edilebilir sınırlar (5 puan) altındadır.

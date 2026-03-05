@@ -1,0 +1,30 @@
+============================================================
+🎓 AI STUDENT COACH - ADİLLİK DENETİM RAPORU (BASELINE)
+============================================================
+Analiz Tarihi: 2025-12-08 06:04
+Model: XGBoost Hibrit V2.0
+------------------------------------------------------------
+METRİK AÇIKLAMASI (BIAS):
+Bias = Gerçek Not - Tahmin Edilen Not
+ (+) Pozitif Bias: Model eksik tahmin etmiş (Öğrenci Mağdur).
+ (-) Negatif Bias: Model fazla tahmin etmiş (Öğrenci Avantajlı).
+------------------------------------------------------------
+
+📌 INTERNET QUALITY
+   • Average         : +0.4686 Puan  [✅ ADİL]
+   • Poor            : +0.1716 Puan  [✅ ADİL]
+   • Good            : -0.0169 Puan  [✅ ADİL]
+
+📌 GENDER
+   • Male            : +0.2951 Puan  [✅ ADİL]
+   • Other           : +0.2630 Puan  [✅ ADİL]
+   • Female          : +0.1075 Puan  [✅ ADİL]
+
+📌 PART TIME JOB
+   • No              : +0.2644 Puan  [✅ ADİL]
+   • Yes             : -0.0187 Puan  [✅ ADİL]
+
+📌 PARENTAL EDUCATION LEVEL
+   • Bachelor        : +0.2982 Puan  [✅ ADİL]
+   • High School     : +0.2299 Puan  [✅ ADİL]
+   • Master          : +0.1551 Puan  [✅ ADİL]

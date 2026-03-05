@@ -1,0 +1,20 @@
+OTOMATİK OLUŞTURULAN PERFORMANS RAPORU
+Tarih: 24.11.2025 01:33
+==================================================
+
+1. MEVCUT DURUM
+- Mevcut Tahmin: 76.91
+- Potansiyel: 96.51
+- Kazanım Fırsatı: +19.60
+
+2. TESPİT EDİLEN KÖK NEDENLER (XAI)
+* Feature 5: -5.52 puan etkisi var.
+* Feature 2: -3.59 puan etkisi var.
+* Feature 1: -0.36 puan etkisi var.
+
+3. YAPAY ZEKA ÖNERİLERİ
+* [Academic] 🎯 **Optimize Edildi:** Standart yerine +2.5 saatlik artış en verimlisi. 
+   🗣️  🔥 **Şampiyonlar Ligi:** Hedefin zirve ise normal çalışmak yetmez. Günde ekstra 2 saatlik 'Derin Çalışma' (Deep Work) ile konuları yetiştirmekle kalmaz, onlara hükmedersin. Bu tempoya vücudun 3 günde alışacak, güven bana. (Şu an: 4.3) (Beklenen Artış: +21.75)
+* [Discipline] 🎬 **Bölüm Sonu Canavarı:** Diziler harika ama akademik geleceğini 'Sonraki Bölüm' butonuna kurban etme. İzleme süreni günde 1 saatin altına çekersen, hem eğlenirsin hem de kazanırsın. Denge senin elinde. (Şu an: 2.0) (Beklenen Artış: +2.63)
+* [Wellness] 🏃‍♂️ **Beynine Oksijen Gönder:** Hiç spor yapmamak, beynini havasız bir odada çalıştırmak gibidir. Haftada sadece 2 gün, 20 dakikalık tempolu yürüyüş bile nöronlarını ateşlemeye yeter. (Şu an: 0.0) (Beklenen Artış: +1.59)
+* [Academic] 🏫 **İçeriden Bilgi:** En iyi notlar kitapta değil, hocanın dudaklarının arasındadır. Devamsızlığın kritik seviyede. Sadece derslere giderek (çalışmadan bile!) sınav sorularının %30'unu yakalayabilirsin. Bu fırsatı tepme. (Şu an: 77.7) (Beklenen Artış: +1.25)

@@ -1,0 +1,18 @@
+=== MODEL SUMMARY ===
+{
+  "rows_train": 800,
+  "rows_test": 200,
+  "regression_MAE": 4.189164366423351,
+  "regression_R2": 0.8967460176649481
+}
+
+=== BAND CLASSIFICATION REPORT ===
+              precision    recall  f1-score   support
+
+       düşük      0.873     0.917     0.894        60
+        orta      0.785     0.795     0.790        78
+      yüksek      0.862     0.806     0.833        62
+
+    accuracy                          0.835       200
+   macro avg      0.840     0.839     0.839       200
+weighted avg      0.835     0.835     0.835       200
