@@ -1,0 +1,921 @@
+﻿@{
+    ViewData["Title"] = "EduMind AI - Akademik Performans Motoru";
+}
+
+@section Styles {
+    <!-- Google Fonts: Outfit (Modern/Geometric) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+}
+
+<div class="product-page-wrapper">
+
+    <!-- Global Background Elements -->
+    <div class="ambient-light"></div>
+    <div class="noise-texture"></div>
+
+    <!-- ======================================================= -->
+    <!-- 1. HERO SECTION (İlk Ekran – 5 Saniyelik Etki)          -->
+    <!-- ======================================================= -->
+    <section class="ultra-hero">
+
+        <!-- 1. Background: Yaşayan Mesh Gradient -->
+        <div class="mesh-background">
+            <div class="mesh-orb orb-1"></div>
+            <div class="mesh-orb orb-2"></div>
+            <div class="mesh-orb orb-3"></div>
+        </div>
+
+        <!-- 2. Overlay Texture (Noise) -->
+        <div class="hero-noise"></div>
+
+        <div class="container position-relative z-index-2">
+            <div class="row align-items-center min-vh-100">
+
+                <!-- LEFT: Typography & CTA -->
+                <div class="col-lg-6 hero-content pt-5">
+
+                    <!-- Animated Badge -->
+                    <div class="ai-status-badge" data-aos="fade-down">
+                        <div class="pulse-dot"></div>
+                        <span class="status-text">EduMind Neural Engine v2.0 Aktif</span>
+                    </div>
+
+                    <h1 class="display-2 fw-bold mb-4" data-aos="fade-right" data-aos-delay="100">
+                        Akademik <br>
+                        <span class="magic-text">Potansiyelini</span> <br>
+                        Özgür Bırak.
+                    </h1>
+
+                    <p class="lead text-white-50 mb-5" data-aos="fade-right" data-aos-delay="200">
+                        Veri yığınları arasında kaybolmayın. EduMind, çalışma alışkanlıklarınızı analiz eder ve size özel, dinamik bir başarı algoritması tasarlar.
+                    </p>
+
+                    <div class="hero-btn-group" data-aos="fade-up" data-aos-delay="300">
+                        <a href="/Home/Index" class="btn-soft-primary">
+                            <span class="btn-text">Analizi Başlat</span>
+                            <div class="btn-glow"></div>
+                        </a>
+                        <a href="#demo" class="btn-play-video">
+                            <div class="play-circle">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <span>Nasıl Çalışır?</span>
+                        </a>
+                    </div>
+
+                    <!-- Social Proof / Mini Stats -->
+                    <div class="hero-footer mt-5" data-aos="fade-up" data-aos-delay="400">
+                        <div class="user-avatars">
+                            <img src="https://i.pravatar.cc/100?img=1" alt="User" class="avatar">
+                            <img src="https://i.pravatar.cc/100?img=5" alt="User" class="avatar">
+                            <img src="https://i.pravatar.cc/100?img=8" alt="User" class="avatar">
+                            <div class="avatar-count">+1.5k</div>
+                        </div>
+                        <div class="stat-text">
+                            <strong>%94 Doğruluk</strong> ile öğrenci başarısı kanıtlandı.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Orbit Animation System (Sürekli Döngü) -->
+                <div class="col-lg-6 position-relative d-none d-lg-block">
+                    <div class="orbit-system-wrapper">
+                        <!-- Central Core (AI Brain) -->
+                        <div class="core-sphere">
+                            <div class="inner-glow"></div>
+                        </div>
+
+                        <!-- Orbit Ring 1 (Inner) -->
+                        <div class="orbit-ring ring-1">
+                            <div class="orbit-item item-focus glass-pill">
+                                <i class="fa-solid fa-bolt text-warning"></i>
+                                <span>Odak: Yüksek</span>
+                            </div>
+                        </div>
+
+                        <!-- Orbit Ring 2 (Middle) -->
+                        <div class="orbit-ring ring-2">
+                            <div class="orbit-item item-grade glass-pill">
+                                <i class="fa-solid fa-graduation-cap text-info"></i>
+                                <span>Matematik: AA</span>
+                            </div>
+                            <div class="orbit-item item-sleep glass-pill">
+                                <i class="fa-solid fa-moon text-purple"></i>
+                                <span>Uyku: 7.5s</span>
+                            </div>
+                        </div>
+
+                        <!-- Orbit Ring 3 (Outer) -->
+                        <div class="orbit-ring ring-3">
+                            <div class="orbit-item item-vision glass-pill">
+                                <i class="fa-solid fa-eye text-success"></i>
+                                <span>Masa Düzeni: %85</span>
+                            </div>
+                        </div>
+
+                        <!-- Background Glow behind system -->
+                        <div class="system-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 2. PROBLEM → ÇÖZÜM ANLATISI (Storytelling)              -->
+    <!-- ======================================================= -->
+    <section id="story-slider" class="story-section">
+        <div class="container text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-bold text-white">Akademik Gerçeklik</h2>
+            <p class="text-muted">Kaydırıcıyı hareket ettir ve farkı gör.</p>
+        </div>
+
+        <!-- Comparison Wrapper -->
+        <div class="comparison-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+
+            <!-- 1. THE CHAOS WORLD (BEFORE) -->
+            <div class="world chaos-world">
+                <div class="world-content">
+                    <div class="chaos-overlay"></div>
+                    <div class="chaos-elements">
+                        <!-- Dağınık Notlar ve Uyarılar -->
+                        <div class="float-item note-1">"Konular yetişmeyecek!"</div>
+                        <div class="float-item note-2">Hangi derse bakmalıyım?</div>
+                        <div class="float-item alert-box">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Sınav Yarın!
+                        </div>
+                        <div class="float-item coffee-stain"></div>
+                        <div class="float-item stress-meter">
+                            <span>Stres Seviyesi</span>
+                            <div class="progress-bar-red"></div>
+                        </div>
+                    </div>
+
+                    <div class="text-container chaos-text">
+                        <h3>KAOS</h3>
+                        <p>Saat 02:00. Masan notlarla dolu. Enerjin tükenmiş ama planın hala yok. Karanlıkta el yordamıyla yürümeye çalışıyorsun.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. THE CLARITY WORLD (AFTER - EDUMIND) -->
+            <div class="world clarity-world">
+                <div class="world-content">
+                    <div class="clarity-overlay"></div>
+                    <div class="clarity-elements">
+                        <!-- Düzenli Dashboard Parçaları -->
+                        <div class="grid-item task-card">
+                            <i class="fa-solid fa-circle-check text-success"></i>
+                            <span>Matematik Modülü Tamamlandı</span>
+                        </div>
+                        <div class="grid-item ai-insight">
+                            <i class="fa-solid fa-wand-magic-sparkles text-primary"></i>
+                            <span>Enerjin düşüyor, 15dk mola ver.</span>
+                        </div>
+                        <div class="grid-item chart-mini">
+                            <div class="bar h-40"></div>
+                            <div class="bar h-70"></div>
+                            <div class="bar h-100"></div>
+                        </div>
+                        <div class="grid-item zen-mode">
+                            <i class="fa-solid fa-leaf"></i> Zen Modu Aktif
+                        </div>
+                    </div>
+
+                    <div class="text-container clarity-text">
+                        <h3>EDUMIND NETLİĞİ</h3>
+                        <p>Saat 22:00. Günün hedefleri bitti. Yapay zeka en verimli rotayı çizdi, sen sadece uyguladın. Mışıl mışıl uyuyabilirsin.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. SLIDER HANDLE -->
+            <div class="scroller-handle">
+                <div class="handle-line"></div>
+                <div class="handle-circle">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 3. PRODUCT CAPABILITIES (Uniform Living Grid)           -->
+    <!-- ======================================================= -->
+    <section class="capabilities-section">
+        <!-- Ambient Background Light -->
+        <div class="ambient-glow"></div>
+
+        <div class="container position-relative z-2">
+            <div class="section-header text-center mb-5" data-aos="fade-down">
+                <span class="badge-soft">EDU-CORE v2</span>
+                <h2 class="display-4 fw-bold mt-2">Teknolojik Çekirdek</h2>
+                <p class="text-white-50">Akademik başarıyı optimize eden 6 özelleşmiş nöral modül.</p>
+            </div>
+
+            <div class="uniform-grid">
+
+                <!-- CARD 1: XGBOOST ENGINE (The Brain) -->
+                <div class="uni-card theme-indigo" data-aos="fade-up" data-delay="0" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="rotating-ring"></div>
+                        <div class="rotating-ring inner"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>XGBoost Motoru</h3>
+                        <p>15+ parametreyi işleyen regresyon modeli. Akademik çıktınızı %94 doğrulukla simüle eder.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Neural Net Active
+                    </div>
+                </div>
+
+                <!-- CARD 2: DESK VISION (The Eye) -->
+                <div class="uni-card theme-emerald" data-aos="fade-up" data-delay="100" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="scan-beam"></div>
+                        <div class="grid-lines"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>DeskAI Vision</h3>
+                        <p>YOLOv8 ile çalışma ortamını tarar. Işık, düzen ve ergonomi analizi yaparak odaklanmayı artırır.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Camera Ready
+                    </div>
+                </div>
+
+                <!-- CARD 3: GENETIC SCHEDULER (The Time) -->
+                <div class="uni-card theme-amber" data-aos="fade-up" data-delay="200" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="clock-gear"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Genetik Planlayıcı</h3>
+                        <p>PuLP optimizasyonu ile bilişsel yükünüze en uygun, esnek ders programını saniyeler içinde kurar.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Optimizer Running
+                    </div>
+                </div>
+
+                <!-- CARD 4: GESTURE CONTROL (The Interaction) -->
+                <div class="uni-card theme-rose" data-aos="fade-up" data-delay="300" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="ripple-center"></div>
+                        <div class="ripple r1"></div>
+                        <div class="ripple r2"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-hand"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Temassız Kontrol</h3>
+                        <p>Web kamerası üzerinden el hareketlerini algılar. Ekrana dokunmadan Pomodoro'yu yönetin.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Sensor Detecting
+                    </div>
+                </div>
+
+                <!-- CARD 5: AI MENTOR (The Guide) -->
+                <div class="uni-card theme-sky" data-aos="fade-up" data-delay="400" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="chat-particle p1"></div>
+                        <div class="chat-particle p2"></div>
+                        <div class="chat-particle p3"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>7/24 AI Mentör</h3>
+                        <p>Motivasyon kaybında veya strateji ihtiyacında yanınızda olan LLM tabanlı akıllı asistan.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Online
+                    </div>
+                </div>
+
+                <!-- CARD 6: DEEP ANALYTICS (The Data) -->
+                <div class="uni-card theme-violet" data-aos="fade-up" data-delay="500" data-tilt>
+                    <div class="card-bg-anim">
+                        <div class="graph-bar b1"></div>
+                        <div class="graph-bar b2"></div>
+                        <div class="graph-bar b3"></div>
+                        <div class="graph-bar b4"></div>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Derin Analitik</h3>
+                        <p>Gelişiminizi anlık grafiklerle takip edin. Kök neden analizi ile sorunun kaynağına inin.</p>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="blink"></span> Data Flowing
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 4. SYSTEM FLOW (The Living Data Pipeline)               -->
+    <!-- ======================================================= -->
+    <section class="flow-section">
+        <!-- Background Elements -->
+        <div class="flow-grid-bg"></div>
+        <div class="flow-glow-spot"></div>
+
+        <div class="container position-relative z-2">
+            <div class="section-header text-center mb-5" data-aos="fade-down">
+                <span class="badge-soft-purple">WORKFLOW</span>
+                <h2 class="display-4 fw-bold mt-2">Veriden Başarıya Yolculuk</h2>
+                <p class="text-white-50">Ham verileriniz EduMind tünelinde nasıl işlenir?</p>
+            </div>
+
+            <div class="pipeline-wrapper">
+                <!-- Bağlantı Hattı ve Hareketli Veri Paketi -->
+                <div class="connection-line">
+                    <div class="energy-stream"></div>
+                    <div class="data-packet p1"></div>
+                    <div class="data-packet p2"></div>
+                </div>
+
+                <div class="row g-4 position-relative">
+
+                    <!-- STEP 1: INPUT (Data Ingestion) -->
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-delay="0">
+                        <div class="flow-card step-1">
+                            <div class="step-number">01</div>
+                            <div class="icon-stage">
+                                <!-- Veri Toplama Animasyonu -->
+                                <div class="data-cloud">
+                                    <i class="fa-solid fa-file-code item i1"></i>
+                                    <i class="fa-solid fa-image item i2"></i>
+                                    <i class="fa-solid fa-clock item i3"></i>
+                                    <div class="center-magnet"><i class="fa-solid fa-database"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h4>Dijital İkiz</h4>
+                                <p>Profiliniz, çalışma alışkanlıklarınız ve masa fotoğrafınız sisteme yüklenir. Dijital bir kopyanız oluşturulur.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: PROCESS (The Black Box) -->
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-delay="200">
+                        <div class="flow-card step-2">
+                            <div class="step-number">02</div>
+                            <div class="icon-stage">
+                                <!-- İşleme Animasyonu -->
+                                <div class="process-core">
+                                    <div class="ring r-outer"></div>
+                                    <div class="ring r-inner"></div>
+                                    <div class="core-pulse"><i class="fa-solid fa-microchip"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h4>Nöral İşleme</h4>
+                                <p>XGBoost ve Computer Vision motorları verileri izole sunucularda işler. Milyonlarca olasılık simüle edilir.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: OUTPUT (Strategy) -->
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-delay="400">
+                        <div class="flow-card step-3">
+                            <div class="step-number">03</div>
+                            <div class="icon-stage">
+                                <!-- Yayılım Animasyonu -->
+                                <div class="output-beacon">
+                                    <div class="wave w1"></div>
+                                    <div class="wave w2"></div>
+                                    <div class="beacon-icon"><i class="fa-solid fa-bullseye"></i></div>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h4>Stratejik Çıktı</h4>
+                                <p>Size özel optimize edilmiş ders programı, kök neden analizi ve ortam iyileştirme raporu oluşturulur.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: EVOLUTION (Feedback Loop) -->
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-delay="600">
+                        <div class="flow-card step-4">
+                            <div class="step-number">04</div>
+                            <div class="icon-stage">
+                                <!-- Yükseliş Animasyonu -->
+                                <div class="evolution-spiral">
+                                    <i class="fa-solid fa-arrow-trend-up arrow-rise"></i>
+                                    <svg class="spiral-svg" viewBox="0 0 100 100">
+                                        <path d="M50,90 A40,40 0 1,1 90,50" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="10 5" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card-text">
+                                <h4>Adaptif Evrim</h4>
+                                <p>Siz geliştikçe sistem öğrenir. Her yeni veride algoritma kendini günceller ve hedefleri yükseltir.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 5. REAL VALUE (Holographic Ecosystem)                   -->
+    <!-- ======================================================= -->
+    <section class="value-section">
+        <!-- Ambient Background -->
+        <div class="value-bg-mesh"></div>
+
+        <div class="container position-relative z-2">
+            <div class="section-header text-center mb-5" data-aos="fade-down">
+                <span class="badge-soft-cyan">IMPACT REPORT</span>
+                <h2 class="display-4 fw-bold mt-2">Neden EduMind?</h2>
+                <p class="text-white-50">Sadece bir yazılım değil, eğitimdeki tüm paydaşlar için bir kaldıraç.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <!-- 1. STUDENT CARD (Ascension) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-delay="0">
+                    <div class="holo-card student-theme">
+                        <div class="card-top-scene">
+                            <div class="scene-glow"></div>
+                            <!-- Yükseliş Animasyonu -->
+                            <div class="rocket-system">
+                                <i class="fa-solid fa-rocket rocket-icon"></i>
+                                <div class="thrust-trail"></div>
+                            </div>
+                            <div class="floating-stars">
+                                <span class="s1"></span><span class="s2"></span><span class="s3"></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="gradient-title">Öğrenci İçin</h3>
+                            <p class="subtitle">Maksimum Potansiyel</p>
+                            <ul class="value-list">
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-arrow-trend-up"></i></span>
+                                    <div><strong>%45 Başarı Artışı</strong><br><small>Veriye dayalı rotalarla.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-brain"></i></span>
+                                    <div><strong>Bilişsel Netlik</strong><br><small>Ne çalışacağım derdi biter.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-gamepad"></i></span>
+                                    <div><strong>Oyunlaştırılmış Süreç</strong><br><small>Streak ve rozet sistemi.</small></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SCHOOL CARD (Network) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-delay="200">
+                    <div class="holo-card school-theme">
+                        <div class="card-top-scene">
+                            <div class="scene-glow"></div>
+                            <!-- Ağ Animasyonu -->
+                            <div class="radar-system">
+                                <div class="radar-circle c1"></div>
+                                <div class="radar-circle c2"></div>
+                                <div class="radar-sweep"></div>
+                                <i class="fa-solid fa-building-columns center-icon"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="gradient-title">Kurum İçin</h3>
+                            <p class="subtitle">Makro İçgörü</p>
+                            <ul class="value-list">
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-chart-pie"></i></span>
+                                    <div><strong>Erken Risk Tespiti</strong><br><small>Düşüş eğilimlerini önceden gör.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-users-viewfinder"></i></span>
+                                    <div><strong>Rehberlik Otomasyonu</strong><br><small>Manuel takibi bırakın.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-trophy"></i></span>
+                                    <div><strong>Kurumsal Prestij</strong><br><small>AI destekli eğitim vizyonu.</small></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. PARENT CARD (Connection) -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-delay="400">
+                    <div class="holo-card parent-theme">
+                        <div class="card-top-scene">
+                            <div class="scene-glow"></div>
+                            <!-- Bağlantı Animasyonu -->
+                            <div class="sync-system">
+                                <div class="sync-orbit">
+                                    <div class="orbit-dot"></div>
+                                </div>
+                                <i class="fa-solid fa-hands-holding-child center-icon heart-beat"></i>
+                            </div>
+                            <div class="shield-guard">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="gradient-title">Veli İçin</h3>
+                            <p class="subtitle">Şeffaf Güven</p>
+                            <ul class="value-list">
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-mobile-screen"></i></span>
+                                    <div><strong>Anlık Bildirimler</strong><br><small>Gelişimden haberdar olun.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-file-contract"></i></span>
+                                    <div><strong>Objektif Rapor</strong><br><small>Yapay zeka tarafsızlığı.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icon-box"><i class="fa-solid fa-house-chimney-user"></i></span>
+                                    <div><strong>Ev İçi Uyum</strong><br><small>Ders tartışmalarına son.</small></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 6. DIFFERENTIATION (Holographic Versus Matrix)          -->
+    <!-- ======================================================= -->
+    <section class="diff-section">
+        <!-- Background Atmosphere -->
+        <div class="diff-noise"></div>
+        <div class="diff-spotlight"></div>
+
+        <div class="container position-relative z-2">
+            <div class="section-header text-center mb-5" data-aos="fade-down">
+                <span class="badge-soft-accent">REKABET ANALİZİ</span>
+                <h2 class="display-4 fw-bold mt-2">Neden Öndeyiz?</h2>
+                <p class="text-white-50">Teknoloji yığınımız ve yaklaşımımız arasındaki derin fark.</p>
+            </div>
+
+            <div class="versus-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+                <!-- Glass Panel Container -->
+                <div class="versus-glass-panel">
+
+                    <!-- Table Header -->
+                    <div class="versus-header">
+                        <div class="col-feature">Özellik</div>
+                        <div class="col-others">Geleneksel Metotlar</div>
+                        <div class="col-edumind">
+                            <div class="logo-glow"></div>
+                            <span class="brand-text">EduMind AI</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 1: AI Analysis -->
+                    <div class="versus-row" data-aos="fade-up" data-delay="100">
+                        <div class="col-feature">
+                            <div class="feat-icon"><i class="fa-solid fa-brain"></i></div>
+                            <span>Performans Analizi</span>
+                        </div>
+                        <div class="col-others">
+                            <span class="text-muted">Manuel / Yok</span>
+                        </div>
+                        <div class="col-edumind">
+                            <div class="check-anim">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="highlight">XGBoost Deep Learning</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Vision -->
+                    <div class="versus-row" data-aos="fade-up" data-delay="200">
+                        <div class="col-feature">
+                            <div class="feat-icon"><i class="fa-solid fa-eye"></i></div>
+                            <span>Ortam Analizi</span>
+                        </div>
+                        <div class="col-others">
+                            <span class="text-muted">Öznel Değerlendirme</span>
+                        </div>
+                        <div class="col-edumind">
+                            <div class="check-anim">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="highlight">Computer Vision (YOLO)</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: Control -->
+                    <div class="versus-row" data-aos="fade-up" data-delay="300">
+                        <div class="col-feature">
+                            <div class="feat-icon"><i class="fa-solid fa-hand"></i></div>
+                            <span>Etkileşim</span>
+                        </div>
+                        <div class="col-others">
+                            <span class="text-muted">Statik Arayüz</span>
+                        </div>
+                        <div class="col-edumind">
+                            <div class="check-anim">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="highlight">Temassız Jest Kontrolü</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Planning -->
+                    <div class="versus-row" data-aos="fade-up" data-delay="400">
+                        <div class="col-feature">
+                            <div class="feat-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                            <span>Planlama</span>
+                        </div>
+                        <div class="col-others">
+                            <span class="text-muted">Standart Şablonlar</span>
+                        </div>
+                        <div class="col-edumind">
+                            <div class="check-anim">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="highlight">Genetik Algoritma (Kişiye Özel)</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5: Transparency -->
+                    <div class="versus-row" data-aos="fade-up" data-delay="500">
+                        <div class="col-feature">
+                            <div class="feat-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                            <span>Şeffaflık (XAI)</span>
+                        </div>
+                        <div class="col-others">
+                            <span class="text-muted">Kapalı Kutu</span>
+                        </div>
+                        <div class="col-edumind">
+                            <div class="check-anim">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="highlight">Açıklanabilir İçgörüler</span>
+                        </div>
+                    </div>
+
+                    <!-- Background Glow Column for EduMind -->
+                    <div class="column-highlight-bg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 7. TECHNOLOGY & TRUST (The Cyber-Sec Core)              -->
+    <!-- ======================================================= -->
+    <section class="tech-section">
+        <!-- Animated Circuit Background -->
+        <div class="circuit-bg"></div>
+        <div class="core-glow-spot"></div>
+
+        <div class="container position-relative z-2">
+            <div class="row align-items-center">
+
+                <!-- LEFT: Narrative & Tech Grid -->
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <span class="badge-soft-emerald mb-3">
+                        <i class="fa-solid fa-shield-halved"></i> GÜVENLİK MİMARİSİ
+                    </span>
+                    <h2 class="display-4 fw-bold mb-4">
+                        Verileriniz <br>
+                        <span class="gradient-text-safe">Dijital Kalede.</span>
+                    </h2>
+                    <p class="lead text-muted mb-5">
+                        EduMind, izole edilmiş Python API servisleri ve ASP.NET Core 8.0'ın kurumsal güvenliğini birleştirir. Verileriniz şifrelenir, parçalanır ve sadece analiz anında birleştirilir.
+                    </p>
+
+                    <!-- Floating Tech Pills -->
+                    <div class="tech-stack-grid">
+                        <div class="tech-pill p-dotnet" data-tilt>
+                            <i class="fa-brands fa-microsoft"></i>
+                            <div>
+                                <strong>.NET 8 Core</strong>
+                                <small>Orchestration</small>
+                            </div>
+                        </div>
+                        <div class="tech-pill p-python" data-tilt>
+                            <i class="fa-brands fa-python"></i>
+                            <div>
+                                <strong>Python AI</strong>
+                                <small>Processing</small>
+                            </div>
+                        </div>
+                        <div class="tech-pill p-data" data-tilt>
+                            <i class="fa-solid fa-database"></i>
+                            <div>
+                                <strong>PostgreSQL</strong>
+                                <small>Encrypted DB</small>
+                            </div>
+                        </div>
+                        <div class="tech-pill p-docker" data-tilt>
+                            <i class="fa-brands fa-docker"></i>
+                            <div>
+                                <strong>Docker</strong>
+                                <small>Isolation</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: The Living Core Animation -->
+                <div class="col-lg-6 position-relative d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1200">
+                    <div class="security-core-wrapper">
+
+                        <!-- Center Core -->
+                        <div class="data-sphere">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <!-- Rotating Shields -->
+                        <div class="shield-ring ring-1"></div> <!-- Outer Slow -->
+                        <div class="shield-ring ring-2"></div> <!-- Middle Reverse -->
+                        <div class="shield-ring ring-3"></div> <!-- Inner Fast -->
+                        <!-- Scanning Particles -->
+                        <div class="scanner-orbit">
+                            <div class="scan-dot"></div>
+                        </div>
+
+                        <!-- Floating Labels -->
+                        <div class="floating-label label-top">
+                            <i class="fa-solid fa-check-circle"></i> ISO 27001
+                        </div>
+                        <div class="floating-label label-bottom">
+                            <i class="fa-solid fa-fingerprint"></i> E2E Encryption
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 8. DEMO & CTA (The Warp Gate)                           -->
+    <!-- ======================================================= -->
+    <section class="cta-warp-section">
+        <!-- Warp Speed Background -->
+        <div class="warp-tunnel">
+            <div class="warp-stars"></div>
+            <div class="warp-stars2"></div>
+        </div>
+
+        <div class="container position-relative z-2">
+            <div class="cta-hologram-card" data-aos="zoom-in" data-aos-duration="1000">
+                <!-- Card Ambient Effects -->
+                <div class="holo-border"></div>
+                <div class="holo-light"></div>
+
+                <div class="text-center p-5">
+                    <span class="badge-glow mb-4">ÜCRETSİZ ERİŞİM</span>
+                    <h2 class="display-3 fw-bold text-white mb-4">
+                        Geleceğini <br>
+                        <span class="text-gradient-gold">Şansa Bırakma.</span>
+                    </h2>
+                    <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 600px;">
+                        EduMind AI, potansiyelini veriye, verini başarıya dönüştürmek için hazır.
+                        15 saniyelik analiz ile ilk adımı at.
+                    </p>
+
+                    <div class="cta-actions d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="/Home/Index" class="btn-magnetic primary-mag">
+                            <span class="btn-content">
+                                <i class="fa-solid fa-bolt"></i> Analizi Başlat
+                            </span>
+                            <div class="mag-glow"></div>
+                        </a>
+                        <a href="#" class="btn-magnetic secondary-mag">
+                            <span class="btn-content">
+                                <i class="fa-solid fa-play"></i> Canlı Demo
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="mt-4 text-white-50 small">
+                        <i class="fa-regular fa-circle-check text-success me-1"></i> Kredi kartı gerekmez
+                        <span class="mx-2">•</span>
+                        <i class="fa-regular fa-circle-check text-success me-1"></i> 14 gün Pro deneme
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 9. FOOTER (Corporate Identity)                          -->
+    <!-- ======================================================= -->
+    <footer class="modern-footer">
+        <!-- Top Gradient Line -->
+        <div class="footer-line"></div>
+
+        <div class="container pt-5 pb-2">
+            <div class="row g-5">
+                <!-- Brand Column -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="brand-wrapper mb-4">
+                        <div class="brand-logo">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="fw-bold text-white m-0">EduMind.AI</h3>
+                    </div>
+                    <p class="text-muted mb-4">
+                        Yapay zeka destekli öğrenci performans motoru.
+                        Veri bilimini akademik koçlukla birleştirerek başarıyı öngörülebilir kılıyoruz.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="s-link"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="s-link"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="s-link"><i class="fa-brands fa-discord"></i></a>
+                        <a href="#" class="s-link"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links Column 1 -->
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="text-white fw-bold mb-3">Platform</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Analiz Motoru</a></li>
+                        <li><a href="#">Desk Vision</a></li>
+                        <li><a href="#">Akıllı Planlayıcı</a></li>
+                        <li><a href="#">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 2 -->
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="text-white fw-bold mb-3">Kaynaklar</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Nasıl Çalışır?</a></li>
+                        <li><a href="#">Başarı Hikayeleri</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Akademik Makaleler</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 3 -->
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="text-white fw-bold mb-3">Bülten</h6>
+                    <p class="text-muted small">Gelişim ipuçları ve özellik güncellemeleri için katılın.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="E-posta adresiniz" class="form-control-dark">
+                        <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="footer-divider my-5">
+
+            <div class="row align-items-center copyright-row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-muted small">&copy; 2025 EduMind Ecosystem. Tüm hakları saklıdır.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="legal-links list-inline mb-0 small">
+                        <li class="list-inline-item"><a href="#">Gizlilik</a></li>
+                        <li class="list-inline-item"><a href="#">Kullanım Şartları</a></li>
+                        <li class="list-inline-item"><a href="#">Çerezler</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="~/js/product.js" asp-append-version="true"></script>
+}

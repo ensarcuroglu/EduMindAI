@@ -1,0 +1,300 @@
+﻿@model OgrenciPerformansArayuz.Models.DeskAnalysisViewModel
+@{
+    ViewData["Title"] = "DeskAI | Çalışma Ortamı Analizi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Ana Wrapper -->
+<div class="desk-ai-wrapper pt-5 mt-5">
+    
+    <!-- Arkaplan Efektleri -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <div class="container position-relative z-1">
+        
+        <!-- Header -->
+        <div class="text-center mb-5 fade-up">
+            <div class="d-inline-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm mb-3">
+                <span class="badge rounded-circle bg-primary p-1 me-2"></span>
+                <span class="small fw-bold text-muted tracking-wide">SOVEREIGN AI MOTORU V2.4</span>
+            </div>
+            <h1 class="display-4 fw-bold text-dark mb-2">
+                Çalışma Alanını <span class="gradient-text">Geleceğe Taşı</span>
+            </h1>
+            <p class="lead text-muted mx-auto" style="max-width: 650px;">
+                DeskAI, çalışma ortamını ışık, düzen ve ergonomi açısından analiz eder. 
+                Sadece bir puan değil, verimliliğini artıracak bir mühendislik reçetesi sunar.
+            </p>
+        </div>
+
+        <!-- Form ve Analiz Kartı -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <form asp-controller="Home" asp-action="AnalyzeDesk" method="post" enctype="multipart/form-data" id="analysisForm">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="glass-panel p-4 p-lg-5 fade-up" style="animation-delay: 0.1s;">
+                        <div class="row g-5 align-items-center">
+                            
+                            <!-- Sol: Upload Zone -->
+                            <div class="col-lg-6">
+                                <div class="upload-wrapper">
+                                    <div class="upload-zone" id="dropZone">
+                                        <input type="file" name="deskImage" id="deskImageInput" class="d-none" accept="image/*">
+                                        
+                                        <!-- Boş Durum -->
+                                        <div class="upload-content text-center p-4">
+                                            <div class="icon-box mx-auto">
+                                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                            </div>
+                                            <h5 class="fw-bold text-dark mb-2">Fotoğrafı Buraya Bırak</h5>
+                                            <p class="text-muted small mb-4">veya dosya seçmek için tıkla (JPG, PNG - Max 5MB)</p>
+                                            <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-semibold" onclick="document.getElementById('deskImageInput').click();">
+                                                Görsel Seç
+                                            </button>
+                                        </div>
+
+                                        <!-- Dolu Durum (Preview) -->
+                                        <div class="preview-container" id="previewContainer">
+                                            <img id="imagePreview" src="#" alt="Desk Preview">
+                                            <div class="preview-overlay">
+                                                <button type="button" class="btn-remove shadow-lg" id="removeBtn" title="Fotoğrafı Kaldır">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sağ: Bilgi -->
+                            <div class="col-lg-6">
+                                <div class="ps-lg-4">
+                                    <h3 class="fw-bold mb-4">Neleri Analiz Ediyoruz?</h3>
+                                    
+                                    <div class="d-flex align-items-start mb-4">
+                                        <div class="rounded-3 bg-soft-warning p-3 me-3 text-warning bg-opacity-10 bg-warning">
+                                            <i class="fa-solid fa-sun fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Spektral Işık Dengesi</h6>
+                                            <p class="text-muted small mb-0">Ortamdaki renk sıcaklığı ve lümen değerinin odaklanmaya etkisi.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start mb-4">
+                                        <div class="rounded-3 bg-soft-info p-3 me-3 text-info bg-opacity-10 bg-info">
+                                            <i class="fa-solid fa-shapes fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Bilişsel Entropi</h6>
+                                            <p class="text-muted small mb-0">Görsel gürültü ve dağınıklık analizi.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start mb-5">
+                                        <div class="rounded-3 bg-soft-success p-3 me-3 text-success bg-opacity-10 bg-success">
+                                            <i class="fa-solid fa-heart-pulse fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Ergonomi & Sağlık</h6>
+                                            <p class="text-muted small mb-0">Monitör açısı ve duruş riskleri.</p>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn-analyze" id="analyzeBtn" disabled>
+                                        <span>ANALİZİ BAŞLAT</span>
+                                        <i class="fa-solid fa-arrow-right-long"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Hata Mesajı -->
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="row justify-content-center mt-4 fade-up">
+                <div class="col-lg-8">
+                    <div class="alert alert-danger border-0 shadow-sm rounded-4 p-3 d-flex align-items-center">
+                        <i class="fa-solid fa-circle-exclamation fs-4 me-3"></i>
+                        <div>@ViewBag.ErrorMessage</div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- SONUÇLAR -->
+        @if (Model != null && Model.IsSuccess)
+        {
+            <div id="resultsSection" class="mt-5 pt-3 fade-up">
+                
+                <!-- Üst Özet Kartları -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-4">
+                        <div class="glass-panel h-100 p-4 text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); border:none;">
+                            <div class="position-relative z-1 d-flex flex-column h-100 justify-content-center text-center">
+                                <span class="text-white-50 text-uppercase ls-1 fw-bold mb-2">Genel Odak Skoru</span>
+                                <h1 class="display-1 fw-bolder mb-0">@Model.Scores.OverallFocus</h1>
+                                <div class="mt-3">
+                                    <span class="badge bg-white text-primary rounded-pill px-3 py-2 fw-bold shadow-sm">
+                                        <i class="fa-solid fa-crown me-1"></i> @Model.Meta.WorkMode
+                                    </span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chart-line position-absolute" style="font-size: 15rem; bottom: -50px; right: -50px; opacity: 0.1;"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="glass-panel h-100 p-4">
+                            <h5 class="fw-bold mb-4 ps-2">Performans Metrikleri</h5>
+                            <div class="row row-cols-2 row-cols-md-4 g-3">
+                                <div class="col">
+                                    <div class="metric-card">
+                                        <div class="score-circle" style="--percent: @Model.Scores.Lighting%; --color: #f59e0b;">
+                                            <span class="score-value">@Model.Scores.Lighting%</span>
+                                        </div>
+                                        <small class="fw-bold text-muted d-block">Aydınlatma</small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="metric-card">
+                                        <!-- Cognitive YERİNE ClutterFree GÜNCELLENDİ -->
+                                        <div class="score-circle" style="--percent: @Model.Scores.ClutterFree%; --color: #8b5cf6;">
+                                            <span class="score-value">@Model.Scores.ClutterFree%</span>
+                                        </div>
+                                        <small class="fw-bold text-muted d-block">Düzen</small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="metric-card">
+                                        <div class="score-circle" style="--percent: @Model.Scores.Ergonomics%; --color: #10b981;">
+                                            <span class="score-value">@Model.Scores.Ergonomics%</span>
+                                        </div>
+                                        <small class="fw-bold text-muted d-block">Ergonomi</small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="metric-card">
+                                        <!-- Health YERİNE Wellness GÜNCELLENDİ -->
+                                        <div class="score-circle" style="--percent: @Model.Scores.Wellness%; --color: #ef4444;">
+                                            <span class="score-value">@Model.Scores.Wellness%</span>
+                                        </div>
+                                        <small class="fw-bold text-muted d-block">Sağlık</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reçete ve Görsel -->
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <div class="glass-panel p-2 h-100">
+                             @if (!string.IsNullOrEmpty(Model.ProcessedImageBase64))
+                            {
+                                <div class="scan-wrapper">
+                                    <!-- AI Görsel Etiketi -->
+                                    <div class="ai-tag">
+                                        <div class="ai-dot"></div>
+                                        <span>CANLI TARAMA</span>
+                                    </div>
+                                    
+                                    <!-- Görsel -->
+                                    <img src="data:image/jpeg;base64,@Model.ProcessedImageBase64" alt="Analiz Sonucu">
+                                    
+                                    <!-- Efektler -->
+                                    <div class="scan-overlay"></div> <!-- Grid Dokusu -->
+                                    <div class="scan-line"></div>    <!-- Lazer Çizgi -->
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="glass-panel p-4 h-100">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="icon-box bg-primary text-white mb-0 me-3" style="width: 48px; height: 48px; font-size: 1.2rem;">
+                                    <i class="fa-solid fa-clipboard-check"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold mb-0">İyileştirme Reçetesi</h5>
+                                    <small class="text-muted">Maksimum verim için AI önerileri</small>
+                                </div>
+                            </div>
+
+                            <div class="custom-scrollbar" style="max-height: 400px; overflow-y: auto;">
+                                @if (Model.Recommendations != null && Model.Recommendations.Any())
+                                {
+                                    @foreach (var item in Model.Recommendations)
+                                    {
+                                        <div class="prescription-item info">
+                                            <div class="p-icon text-primary"><i class="fa-solid fa-check"></i></div>
+                                            <span class="text-dark">@item</span>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="alert alert-success border-0 bg-soft-success">
+                                        <i class="fa-solid fa-medal me-2"></i> Harika! Kritik bir düzenleme gerekmiyor.
+                                    </div>
+                                }
+                            </div>
+                            
+                            <div class="mt-4 pt-3 border-top d-flex justify-content-between text-muted small">
+                                <span>AI Güven Skoru: <strong>%@Model.Meta.Confidence</strong></span>
+                                <span><i class="fa-solid fa-clock me-1"></i> 0.8s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.getElementById("resultsSection").scrollIntoView({ behavior: "smooth", block: "start" });
+                });
+            </script>
+        }
+    </div>
+</div>
+
+<!-- Gelişmiş AI Loading Ekranı (Öğrenci Dostu Tasarım) -->
+<div id="loadingOverlay" class="scan-loader d-none">
+    <div class="cyber-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-core">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+    </div>
+    
+    <div class="text-center">
+        <h3 class="loading-title">EduMind AI</h3>
+        <p class="loading-subtitle" id="loadingText">Sistem hazırlanıyor...</p>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar-ai" id="loadingProgress"></div>
+    </div>
+    
+    <small class="text-white-50 mt-3 fst-italic" style="font-size: 0.8rem;">
+        <i class="fa-solid fa-bolt text-warning me-1"></i> %100 Yapay Zeka Gücü
+    </small>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/deskanalyze.css" />
+}
+
+@section Scripts {
+    <script src="~/js/deskanalyze.js" asp-append-version="true"></script>
+}

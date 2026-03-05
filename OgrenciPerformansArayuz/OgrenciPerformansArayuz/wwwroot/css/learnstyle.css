@@ -1,0 +1,444 @@
+﻿:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #f72585;
+    --success-color: #06d6a0;
+    --warning-color: #ffd166;
+    --info-color: #4895ef;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Background Shapes */
+.background-shapes .shape {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.shape-1 {
+    background: #4361ee;
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+}
+
+.shape-2 {
+    background: #f72585;
+    width: 300px;
+    height: 300px;
+    bottom: 50px;
+    right: -50px;
+}
+
+.shape-3 {
+    background: #06d6a0;
+    width: 200px;
+    height: 200px;
+    top: 40%;
+    left: 40%;
+}
+
+.learn-style-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Glass Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-card:hover {
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Inputs & Selects */
+.section-title {
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1.2px;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.form-control, .form-select, .input-group-text {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.7);
+    padding: 10px 15px;
+    transition: all 0.2s;
+    color: #2b2d42;
+}
+
+    .form-control:focus, .form-select:focus {
+        background: white;
+        box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        border-color: var(--primary-color);
+        outline: none;
+    }
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+/* Checkbox Toggle Pills */
+.switch-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.toggle-pill {
+    position: relative;
+}
+
+    .toggle-pill input {
+        display: none;
+    }
+
+    .toggle-pill label {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(255,255,255,0.6);
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        user-select: none;
+        color: #495057;
+    }
+
+    .toggle-pill input:checked + label {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+    }
+
+/* Analyze Button */
+.btn-analyze {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+    .btn-analyze:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+    }
+
+    .btn-analyze:disabled {
+        opacity: 0.7;
+        transform: none;
+        cursor: not-allowed;
+    }
+
+/* Custom Progress Bars */
+.progress-wrapper {
+    background: rgba(255,255,255,0.5);
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+.custom-progress {
+    height: 10px;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(90deg, #a0c4ff, var(--info-color));
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(90deg, #ffea00, var(--warning-color));
+}
+
+.bg-gradient-success {
+    background: linear-gradient(90deg, #9ef01a, var(--success-color));
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(90deg, #ff758f, var(--accent-color));
+}
+
+/* General Animations */
+.fade-in-active {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Markdown Content */
+.markdown-content {
+    color: #2b2d42;
+    line-height: 1.7;
+}
+
+    .markdown-content strong {
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+
+    .markdown-content ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .markdown-content li {
+        position: relative;
+        margin-bottom: 0.8rem;
+        background-color: rgba(255,255,255,0.4);
+        padding: 10px 10px 10px 2.5rem;
+        border-radius: 8px;
+    }
+
+        .markdown-content li::before {
+            content: "⚡";
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 1rem;
+        }
+
+.gemini-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #FFF, #e2e2e2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+/* --- EMPTY STATE & ANIMATIONS --- */
+
+.empty-state-card {
+    min-height: 500px; /* Kartın yüksekliği form ile dengeli olsun */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animasyonlu İkon Wrapper */
+.ai-waiting-visual {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Merkez İkon Kutusu */
+.icon-box {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.gradient-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(67, 97, 238, 0.3));
+}
+
+/* Arkadaki Yayılan Halkalar */
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    opacity: 0;
+    animation: ripple 3s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+    .pulse-ring.delay {
+        animation-delay: 1.5s;
+    }
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+        border-width: 4px;
+    }
+
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+        border-width: 0px;
+    }
+}
+
+/* Yüzen Küçük Partiküller */
+.particle {
+    position: absolute;
+    font-size: 10px;
+    color: var(--secondary-color);
+    opacity: 0.6;
+    animation: floatParticle 4s ease-in-out infinite;
+}
+
+.p-1 {
+    top: 0;
+    right: 0;
+    animation-delay: 0s;
+    color: var(--accent-color);
+}
+
+.p-2 {
+    bottom: 10px;
+    left: 10px;
+    animation-delay: 1.2s;
+    color: var(--info-color);
+    font-size: 8px;
+}
+
+.p-3 {
+    top: 10px;
+    left: 0;
+    animation-delay: 2.5s;
+    color: var(--warning-color);
+}
+
+@keyframes floatParticle {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(10px, -15px) rotate(45deg);
+    }
+}
+
+/* Adım Rehberi (Steps) */
+.glass-inset {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.6;
+    transition: all 0.3s;
+    padding: 0 10px;
+}
+
+    .step-item.active {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+        .step-item.active .step-icon {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+            border-color: var(--primary-color);
+        }
+
+.step-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.step-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.step-arrow {
+    color: #ccc;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    padding-bottom: 15px; /* İkon hizasına gelmesi için */
+}
+
+/* Mobilde adımları alt alta almayalım, sığması için scale edelim */
+@media (max-width: 576px) {
+    .steps-container {
+        transform: scale(0.9);
+    }
+
+    .empty-state-card {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+}

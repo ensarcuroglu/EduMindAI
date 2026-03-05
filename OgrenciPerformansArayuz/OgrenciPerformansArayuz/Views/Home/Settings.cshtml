@@ -1,0 +1,344 @@
+﻿@{
+    ViewData["Title"] = "Ayarlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/settings.css" asp-append-version="true" />
+}
+
+<!-- Hareketli Arka Plan Efekti -->
+<div class="ambient-background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+</div>
+
+<div class="settings-container fade-in-up">
+
+    <div class="settings-header">
+        <h1>Hesap Yönetimi</h1>
+        <p>Yapay zeka deneyimini ve profilini kişiselleştir.</p>
+    </div>
+
+    <div class="settings-layout glass-panel-main">
+
+        <!-- SOL MENÜ -->
+        <aside class="settings-sidebar">
+            <div class="sidebar-user-brief">
+                <img src="https://ui-avatars.com/api/?name=Ogrenci&background=6366f1&color=fff&bold=true" class="mini-avatar" id="sidebarAvatar">
+                <div class="brief-info">
+                    <span class="b-name">Öğrenci Adı</span>
+                    <span class="b-status">Pro Üye</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-target="profile">
+                    <div class="nav-icon-box"><i class="fa-regular fa-user"></i></div>
+                    <span>Profil</span>
+                    <i class="fa-solid fa-chevron-right arrow-indicator"></i>
+                </button>
+                <button class="nav-item" data-target="ai-preferences">
+                    <div class="nav-icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <span>AI Tercihleri</span>
+                    <span class="badge-new">YENİ</span>
+                </button>
+                <button class="nav-item" data-target="security">
+                    <div class="nav-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span>Güvenlik</span>
+                </button>
+                <button class="nav-item" data-target="notifications">
+                    <div class="nav-icon-box"><i class="fa-regular fa-bell"></i></div>
+                    <span>Bildirimler</span>
+                </button>
+                <button class="nav-item" data-target="app-settings">
+                    <div class="nav-icon-box"><i class="fa-solid fa-sliders"></i></div>
+                    <span>Uygulama</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- SAĞ İÇERİK -->
+        <main class="settings-content">
+
+            <!-- TAB: PROFIL -->
+            <div id="profile" class="tab-panel active">
+                <div class="panel-header">
+                    <h2>Profil Bilgileri</h2>
+                    <p>Kimliğini ve akademik bilgilerini güncelle.</p>
+                </div>
+
+                <div class="avatar-upload-zone">
+                    <div class="avatar-preview-ring">
+                        <img src="https://ui-avatars.com/api/?name=Ogrenci&background=4F46E5&color=fff&size=128&bold=true" id="avatarPreview" alt="Avatar">
+                        <label for="avatarUpload" class="edit-overlay">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
+                    </div>
+                    <div class="avatar-texts">
+                        <h3>Profil Fotoğrafı</h3>
+                        <p>Kişisel markanı oluştur. Max 2MB.</p>
+                        <div class="btn-group-sm">
+                            <label for="avatarUpload" class="btn-secondary-sm">Yükle</label>
+                            <button class="btn-text-danger">Kaldır</button>
+                        </div>
+                        <input type="file" id="avatarUpload" hidden accept="image/*">
+                    </div>
+                </div>
+
+                <form class="settings-form" onsubmit="return false;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Ad</label>
+                            <input type="text" value="Öğrenci" class="modern-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Soyad</label>
+                            <input type="text" value="Yılmaz" class="modern-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>E-posta</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" value="ogrenci@mu.edu.tr" class="modern-input" disabled style="opacity:0.7; cursor:not-allowed;">
+                            <span class="verified-badge" title="Doğrulanmış"><i class="fa-solid fa-circle-check"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bölüm / Alan</label>
+                        <input type="text" value="Bilişim Sistemleri Mühendisliği" class="modern-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea rows="3" class="modern-input" placeholder="Hedeflerinden bahset..."></textarea>
+                    </div>
+
+                    <div class="action-footer">
+                        <button class="btn-primary-glow" onclick="saveChanges(this)">Değişiklikleri Kaydet</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TAB: AI TERCİHLERİ (YENİ) -->
+            <div id="ai-preferences" class="tab-panel">
+                <div class="panel-header">
+                    <h2>AI Tercihleri</h2>
+                    <p>Yapay zeka asistanının davranışlarını özelleştir.</p>
+                </div>
+
+                <div class="preference-card">
+                    <div class="pref-header">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                        <div>
+                            <h4>İletişim Tonu</h4>
+                            <p>Asistanın seninle nasıl konuşmalı?</p>
+                        </div>
+                    </div>
+                    <div class="radio-select-group">
+                        <label class="radio-card">
+                            <input type="radio" name="aiTone" value="formal">
+                            <span class="content">
+                                <span class="emoji">👔</span>
+                                <span class="title">Resmi</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="aiTone" value="friendly" checked>
+                            <span class="content">
+                                <span class="emoji">👋</span>
+                                <span class="title">Arkadaşça</span>
+                            </span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="aiTone" value="coach">
+                            <span class="content">
+                                <span class="emoji">🏆</span>
+                                <span class="title">Koç Gibi</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="preference-card mt-4">
+                    <div class="pref-header">
+                        <i class="fa-solid fa-align-left"></i>
+                        <div>
+                            <h4>Yanıt Detay Seviyesi</h4>
+                            <p>Cevaplar ne kadar uzun olsun?</p>
+                        </div>
+                    </div>
+                    <div class="range-wrapper">
+                        <div class="range-labels">
+                            <span>Özet</span>
+                            <span>Dengeli</span>
+                            <span>Detaylı</span>
+                        </div>
+                        <input type="range" min="1" max="3" step="1" value="2" class="custom-range">
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="btn-primary-glow" onclick="saveChanges(this)">AI Ayarlarını Kaydet</button>
+                </div>
+            </div>
+
+            <!-- TAB: GÜVENLİK -->
+            <div id="security" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Güvenlik ve Giriş</h2>
+                    <p>Hesap güvenliğini en üst düzeyde tut.</p>
+                </div>
+
+                <div class="security-section">
+                    <h3>Şifre Değiştir</h3>
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label>Mevcut Şifre</label>
+                            <input type="password" class="modern-input" placeholder="••••••••">
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Yeni Şifre</label>
+                                <input type="password" id="newPassword" class="modern-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Yeni Şifre (Tekrar)</label>
+                                <input type="password" class="modern-input">
+                            </div>
+                        </div>
+
+                        <!-- Şifre Güç Göstergesi -->
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="fill" id="strengthFill"></div>
+                            </div>
+                            <span id="strengthText">Şifre girilmedi</span>
+                        </div>
+
+                        <div class="mt-3 text-end">
+                            <button class="btn-secondary-sm" onclick="saveChanges(this)">Şifreyi Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="divider-glass"></div>
+
+                <div class="active-sessions">
+                    <h3>Aktif Oturumlar</h3>
+                    <div class="session-item">
+                        <div class="device-icon"><i class="fa-solid fa-desktop"></i></div>
+                        <div class="session-info">
+                            <span class="device-name">Windows PC - Chrome</span>
+                            <span class="session-loc">İstanbul, TR • Şu an aktif</span>
+                        </div>
+                        <span class="status-badge">Bu Cihaz</span>
+                    </div>
+                    <div class="session-item">
+                        <div class="device-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                        <div class="session-info">
+                            <span class="device-name">iPhone 13 - Safari</span>
+                            <span class="session-loc">İstanbul, TR • 2 saat önce</span>
+                        </div>
+                        <button class="btn-link-danger">Çıkış Yap</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: BİLDİRİMLER -->
+            <div id="notifications" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Bildirimler</h2>
+                    <p>Seni ne zaman rahatsız edebiliriz?</p>
+                </div>
+                <!-- Mevcut switch yapıları buraya, modern CSS ile -->
+                <div class="modern-toggle-list">
+                    <div class="toggle-row">
+                        <div class="t-content">
+                            <h5>E-posta Bülteni</h5>
+                            <p>Haftalık gelişim raporları ve ipuçları.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div class="t-content">
+                            <h5>Pomodoro Sesleri</h5>
+                            <p>Zamanlayıcı bitiminde ses çal.</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="action-footer">
+                    <button class="btn-primary-glow" onclick="saveChanges(this)">Tercihleri Kaydet</button>
+                </div>
+            </div>
+
+            <!-- TAB: UYGULAMA -->
+            <div id="app-settings" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Uygulama Ayarları</h2>
+                    <p>Görünüm ve sistem tercihleri.</p>
+                </div>
+
+                <div class="theme-selector-area">
+                    <label>Tema Seçimi</label>
+                    <div class="theme-grid">
+                        <label class="theme-option active">
+                            <input type="radio" name="appTheme" checked>
+                            <div class="preview light-prev">
+                                <div class="p-nav"></div><div class="p-body"></div>
+                            </div>
+                            <span>Aydınlık</span>
+                        </label>
+                        <label class="theme-option">
+                            <input type="radio" name="appTheme">
+                            <div class="preview dark-prev">
+                                <div class="p-nav"></div><div class="p-body"></div>
+                            </div>
+                            <span>Karanlık</span>
+                        </label>
+                        <label class="theme-option">
+                            <input type="radio" name="appTheme">
+                            <div class="preview auto-prev">
+                                <i class="fa-solid fa-circle-half-stroke"></i>
+                            </div>
+                            <span>Sistem</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- DANGER ZONE -->
+                <div class="danger-zone mt-5">
+                    <div class="dz-header">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h4>Tehlikeli Bölge</h4>
+                    </div>
+                    <div class="dz-content">
+                        <div class="dz-row">
+                            <p>Tüm çalışma verilerini ve geçmişini sıfırla.</p>
+                            <button class="btn-danger-outline">Verileri Sıfırla</button>
+                        </div>
+                        <div class="dz-row">
+                            <p>Hesabını kalıcı olarak sil. Bu işlem geri alınamaz.</p>
+                            <button class="btn-danger-solid">Hesabı Sil</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/settings.js" asp-append-version="true"></script>
+}

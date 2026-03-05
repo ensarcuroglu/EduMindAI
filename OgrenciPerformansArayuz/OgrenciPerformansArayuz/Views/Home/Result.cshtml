@@ -1,0 +1,249 @@
+﻿@model OgrenciPerformansArayuz.Models.PredictionResponseModel
+@{
+    ViewData["Title"] = "Analiz Sonucu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var studentJson = ViewBag.StudentDataJson as string;
+}
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/result.css" asp-append-version="true" />
+}
+
+<!-- Konfeti Canvas (Gizli Başlar) -->
+<canvas id="confettiCanvas"></canvas>
+
+<div class="result-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="grid-overlay"></div>
+</div>
+
+<div class="container result-container">
+
+    <!-- Header Card -->
+    <div class="glass-card header-card fade-in-down">
+        <div class="row align-items-center justify-content-center">
+            
+            <!-- 1. Mevcut Skor -->
+            <div class="col-md-3 text-center mb-4 mb-md-0">
+                <div class="score-circle current-wrapper">
+                    <svg class="progress-ring" width="140" height="140">
+                        <circle class="progress-ring__circle bg" stroke="rgba(99, 102, 241, 0.1)" stroke-width="8" fill="transparent" r="60" cx="70" cy="70"/>
+                        <circle class="progress-ring__circle val" stroke="#6366f1" stroke-width="8" fill="transparent" r="60" cx="70" cy="70" style="stroke-dasharray: 377; stroke-dashoffset: 377;"/>
+                    </svg>
+                    <div class="score-inner">
+                        <span class="score-val counter-anim" data-target="@Model.CurrentScore.ToString(System.Globalization.CultureInfo.InvariantCulture)">0</span>
+                        <span class="score-label">Mevcut</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Gelişmiş Fark Göstergesi (YENİ TASARIM) -->
+            <div class="col-md-6 text-center position-relative mb-4 mb-md-0">
+                <!-- Bağlantı Çizgisi (Masaüstü için) -->
+                <div class="connection-line d-none d-md-block">
+                    <div class="line-flow"></div>
+                </div>
+
+                <!-- Yükseltme Kartı -->
+                <div class="uplift-card glass-morphism float-anim">
+                    <div class="card-glow"></div>
+                    <div class="icon-box pulse-infinite">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <div class="text-content">
+                        <span class="label">Kazanılabilir Potansiyel</span>
+                        <div class="value-row">
+                            <span class="plus">+</span>
+                            <span class="number counter-anim" data-target="@((Model.PotentialScore - Model.CurrentScore).ToString("0.0", System.Globalization.CultureInfo.InvariantCulture))" data-decimals="1">0.0</span>
+                            <span class="unit">Puan</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="ai-insight-text mt-3">Yapay zeka analizine göre gelişim rotan hazır.</p>
+            </div>
+
+            <!-- 3. Hedef Skor -->
+            <div class="col-md-3 text-center">
+                <div class="score-circle potential-wrapper">
+                     <svg class="progress-ring" width="140" height="140">
+                        <circle class="progress-ring__circle bg" stroke="rgba(236, 72, 153, 0.1)" stroke-width="8" fill="transparent" r="60" cx="70" cy="70"/>
+                        <circle class="progress-ring__circle val potential-stroke" stroke="#ec4899" stroke-width="8" fill="transparent" r="60" cx="70" cy="70" style="stroke-dasharray: 377; stroke-dashoffset: 377;"/>
+                    </svg>
+                    <div class="score-inner">
+                        <span class="score-val gradient-text counter-anim" data-target="@Model.PotentialScore.ToString(System.Globalization.CultureInfo.InvariantCulture)">0</span>
+                        <span class="score-label">Hedef</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-2">
+
+        <!-- Sol Kolon: Öneriler -->
+        <div class="col-lg-7">
+            <div class="glass-panel h-100 fade-in-up delay-1">
+                <div class="panel-header">
+                    <h3 class="shimmer-text"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Önerileri</h3>
+                    <span class="badge-soft">@Model.TotalOpportunities Fırsat</span>
+                </div>
+
+                <div class="recommendations-list custom-scroll">
+                    @if (Model.Recommendations != null && Model.Recommendations.Count > 0)
+                    {
+                        int delay = 2;
+                        foreach (var rec in Model.Recommendations)
+                        {
+                            <div class="rec-card stagger-anim" style="--delay: @(delay++)">
+                                <div class="rec-visual-strip @rec.Category.ToLower()"></div>
+                                <div class="rec-content">
+                                    <div class="rec-header">
+                                        <span class="cat-badge @rec.Category.ToLower()">
+                                            @if(rec.Category == "Academic") { <i class="fa-solid fa-graduation-cap"></i> }
+                                            else if(rec.Category == "Health") { <i class="fa-solid fa-heart-pulse"></i> }
+                                            else { <i class="fa-solid fa-users"></i> }
+                                            @rec.Category
+                                        </span>
+                                        <span class="impact-score">
+                                            <i class="fa-solid fa-arrow-up"></i> @rec.CalculatedImpact.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)
+                                        </span>
+                                    </div>
+                                    <p class="rec-text">@rec.Text</p>
+                                    <div class="rec-footer">
+                                        <div class="meta-item">
+                                            <i class="fa-regular fa-clock"></i> @rec.TimeCost Saat
+                                        </div>
+                                        <div class="meta-item">
+                                             @if (rec.Difficulty == "Easy") { <span class="diff-easy"><i class="fa-solid fa-seedling"></i> Kolay</span> }
+                                             else if (rec.Difficulty == "Medium") { <span class="diff-medium"><i class="fa-solid fa-layer-group"></i> Orta</span> }
+                                             else { <span class="diff-hard"><i class="fa-solid fa-fire"></i> Zor</span> }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <div class="empty-icon"><i class="fa-solid fa-check-double"></i></div>
+                            <p>Mükemmel durumdasın! Şu an için ek bir optimizasyon gerekmiyor.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Kolon: Simülatör -->
+        <div class="col-lg-5">
+            <div class="glass-panel simulator-panel fade-in-up delay-2">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-handshake text-primary"></i> Pazarlık Modu</h3>
+                </div>
+                <p class="panel-desc">
+                    Hedefini değiştir veya vazgeçemeyeceklerini kilitle. AI senin için yeni bir rota çizsin.
+                </p>
+
+                <!-- Slider -->
+                <div class="control-group">
+                    <div class="label-row">
+                        <label>Hedef Puanın</label>
+                        <span class="slider-val" id="targetScoreDisplay">@Model.PotentialScore.ToString("0")</span>
+                    </div>
+                    <div class="range-wrapper">
+                        <input type="range" class="custom-slider" id="targetScoreSlider"
+                               min="@Math.Ceiling(Model.CurrentScore)" max="100"
+                               value="@Model.PotentialScore.ToString(System.Globalization.CultureInfo.InvariantCulture)" step="1">
+                        <!-- Custom track CSS ile handle edilecek -->
+                    </div>
+                </div>
+
+                <!-- Locks -->
+                <div class="control-group">
+                    <label class="mb-3 d-block fw-bold text-dark">Nelerden Vazgeçemezsin?</label>
+                    <div class="locks-grid">
+                        <label class="lock-btn">
+                            <input type="checkbox" class="feature-lock" value="netflix_hours">
+                            <div class="lock-inner">
+                                <div class="icon-circle netflix"><i class="fa-brands fa-netflix"></i></div>
+                                <span>Netflix</span>
+                                <i class="fa-solid fa-unlock status-icon"></i>
+                            </div>
+                        </label>
+                        <label class="lock-btn">
+                            <input type="checkbox" class="feature-lock" value="social_media_hours">
+                             <div class="lock-inner">
+                                <div class="icon-circle social"><i class="fa-brands fa-instagram"></i></div>
+                                <span>Sosyal</span>
+                                <i class="fa-solid fa-unlock status-icon"></i>
+                            </div>
+                        </label>
+                        <label class="lock-btn">
+                            <input type="checkbox" class="feature-lock" value="sleep_hours">
+                             <div class="lock-inner">
+                                <div class="icon-circle sleep"><i class="fa-solid fa-moon"></i></div>
+                                <span>Uyku</span>
+                                <i class="fa-solid fa-unlock status-icon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- GÜNCELLENMİŞ BUTON YAPISI -->
+                <button class="btn-negotiate" id="btnNegotiate">
+                    <span class="btn-content">
+                        <span class="btn-text">Yeni Rota Hesapla</span>
+                    </span>
+
+                    <!-- Normal İkon -->
+                    <div class="btn-icon-box static-icon">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+
+                    <!-- Loading Animasyonu (Gizli Başlar) -->
+                    <div class="btn-loader">
+                        <svg viewBox="0 0 50 50" class="spinner">
+                            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Sonuç Kutusu -->
+                <div id="negotiationResult" class="negotiation-result hidden">
+                    <div class="result-header">
+                        <div class="success-icon-anim"><i class="fa-solid fa-check"></i></div>
+                        <span>Anlaşma Sağlandı!</span>
+                    </div>
+                    <div class="mentor-note glass-inner">
+                        <i class="fa-solid fa-quote-left quote-icon"></i>
+                        <span id="mentorMessage">...</span>
+                    </div>
+                    <div class="changes-list" id="changesList">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav fade-in-up delay-3">
+        <a href="/" class="btn-outline-anim">
+            <i class="fa-solid fa-arrow-left"></i> <span>Yeni Analiz</span>
+        </a>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        const STUDENT_DATA = @Html.Raw(studentJson ?? "{}");
+        const CURRENT_SCORE = @Model.CurrentScore.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        const POTENTIAL_SCORE = @Model.PotentialScore.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="~/js/result.js" asp-append-version="true"></script>
+}

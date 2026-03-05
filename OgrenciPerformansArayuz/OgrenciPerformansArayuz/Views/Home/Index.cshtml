@@ -1,0 +1,256 @@
+﻿@model OgrenciPerformansArayuz.Models.StudentInputModel
+@{
+    ViewData["Title"] = "AI Performans Analizi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+<div class="animated-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<div class="main-container">
+
+    <header class="page-header fade-in-down">
+        <div class="badge-pill">
+            <i class="fa-solid fa-sparkles"></i> <span>v2.5 AI Engine</span>
+        </div>
+        <h1 class="hero-title">
+            Geleceğini <span class="gradient-text">Tasarla</span>
+        </h1>
+        <p class="hero-subtitle">
+            Yapay zeka algoritmamız akademik ve biyolojik verilerini analiz ederek sana özel başarı rotasını çiziyor.
+        </p>
+    </header>
+
+    <div class="glass-panel fade-in-up">
+
+        <div class="wizard-progress">
+            <div class="progress-track">
+                <div class="progress-fill" id="progressLine"></div>
+            </div>
+            <div class="steps-container">
+                <div class="step-item active" data-step="1">
+                    <div class="step-icon"><i class="fa-regular fa-id-card"></i></div>
+                    <span class="step-label">Profil</span>
+                </div>
+                <div class="step-item" data-step="2">
+                    <div class="step-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <span class="step-label">Akademik</span>
+                </div>
+                <div class="step-item" data-step="3">
+                    <div class="step-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <span class="step-label">Yaşam</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="timeBudgetAlert" class="alert-glass hidden">
+            <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert-content">
+                <strong>Zaman Sınırı Aşıldı!</strong>
+                <p>Günün 24 saatini geçtin (<span id="totalHoursCalc">0</span>s). Lütfen süreleri dengele.</p>
+            </div>
+        </div>
+
+        <form asp-controller="Home" asp-action="Analyze" method="post" id="predictionForm" class="wizard-form">
+            <input type="hidden" asp-for="StudentId" />
+
+            <div class="wizard-step active" id="step1">
+                <h3 class="step-title">Kimlik Bilgileri</h3>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label asp-for="Age">Yaşın</label>
+                        <input asp-for="Age" type="number" class="input-modern" placeholder="Örn: 20" min="10" max="100" required>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="Gender">Cinsiyet</label>
+                        <div class="select-wrapper">
+                            <select asp-for="Gender" class="input-modern">
+                                <option value="Male">Erkek</option>
+                                <option value="Female">Kadın</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="ParentalEducationLevel">Ebeveyn Eğitimi</label>
+                        <div class="select-wrapper">
+                            <select asp-for="ParentalEducationLevel" class="input-modern">
+                                <option value="High School">Lise</option>
+                                <option value="Bachelor">Lisans</option>
+                                <option value="Master">Yüksek Lisans</option>
+                                <option value="PhD">Doktora</option>
+                                <option value="None">Diğer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="InternetQuality">İnternet Altyapısı</label>
+                        <div class="select-wrapper">
+                            <select asp-for="InternetQuality" class="input-modern">
+                                <option value="Good">İyi (Fiber/Hızlı)</option>
+                                <option value="Average" selected>Orta (Standart)</option>
+                                <option value="Poor">Kötü (Yavaş/Kesintili)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wizard-step hidden-step" id="step2">
+                <h3 class="step-title">Akademik Durum</h3>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label asp-for="StudyHoursPerDay">Günlük Ders (Saat)</label>
+                        <input asp-for="StudyHoursPerDay" type="number" class="input-modern time-input" step="0.5" min="0" max="24" required>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="AttendancePercentage">Devamlılık (%)</label>
+                        <input asp-for="AttendancePercentage" type="number" class="input-modern" placeholder="90" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <div class="radio-section mt-4">
+                    <label class="section-label">Sosyal & İş Hayatı</label>
+                    <div class="cards-grid">
+                        <label class="selection-card">
+                            <input type="radio" asp-for="ExtracurricularParticipation" value="Yes" name="ExtracurricularParticipation">
+                            <div class="card-inner">
+                                <div class="icon-box"><i class="fa-solid fa-users"></i></div>
+                                <span>Kulüp Var</span>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="radio" asp-for="ExtracurricularParticipation" value="No" name="ExtracurricularParticipation" checked>
+                            <div class="card-inner">
+                                <div class="icon-box"><i class="fa-solid fa-user-xmark"></i></div>
+                                <span>Kulüp Yok</span>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="radio" asp-for="PartTimeJob" value="Yes" name="PartTimeJob">
+                            <div class="card-inner">
+                                <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
+                                <span>İş Var</span>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="radio" asp-for="PartTimeJob" value="No" name="PartTimeJob" checked>
+                            <div class="card-inner">
+                                <div class="icon-box"><i class="fa-solid fa-mug-hot"></i></div>
+                                <span>İş Yok</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wizard-step hidden-step" id="step3">
+                <h3 class="step-title">Yaşam Dengesi</h3>
+                <div class="form-grid triple">
+                    <div class="input-group">
+                        <label asp-for="SocialMediaHours">Sosyal Medya (s)</label>
+                        <input asp-for="SocialMediaHours" type="number" class="input-modern time-input" step="0.5" min="0" max="24" required>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="NetflixHours">Dizi/Film (s)</label>
+                        <input asp-for="NetflixHours" type="number" class="input-modern time-input" step="0.5" min="0" max="24" required>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="SleepHours">Uyku (s)</label>
+                        <input asp-for="SleepHours" type="number" class="input-modern time-input" step="0.5" min="0" max="24" required>
+                    </div>
+                </div>
+
+                <div class="form-grid mt-4">
+                    <div class="input-group">
+                        <label asp-for="ExerciseFrequency">Haftalık Egzersiz (Gün)</label>
+                        <input asp-for="ExerciseFrequency" type="number" class="input-modern" min="0" max="7" required>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="DietQuality">Beslenme</label>
+                        <div class="select-wrapper">
+                            <select asp-for="DietQuality" class="input-modern">
+                                <option value="Good">Sağlıklı</option>
+                                <option value="Fair" selected>Normal</option>
+                                <option value="Poor">Dengesiz</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mood-card mt-4">
+                    <div class="mood-header">
+                        <label class="mood-title">🧠 Mental Durum</label>
+                        <span class="mood-status" id="moodText">İdare Ederiz...</span>
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="emoji-box">
+                            <span id="moodEmoji">😐</span>
+                        </div>
+
+                        <input asp-for="MentalHealthRating"
+                               type="range"
+                               class="modern-range"
+                               min="1"
+                               max="10"
+                               value="7"
+                               step="1"
+                               oninput="updateMood(this.value)">
+                    </div>
+
+                    <div class="mood-scale-labels">
+                        <span>Tükenmişlik Sınırı</span>
+
+                        <span>Optimal Performans</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wizard-footer">
+                <button type="button" class="btn-secondary hidden" id="prevBtn">
+                    <i class="fa-solid fa-arrow-left"></i> Geri
+                </button>
+
+                <button type="button" class="btn-primary" id="nextBtn">
+                    İleri <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <button type="submit" class="btn-success hidden" id="submitBtn">
+                    <span class="btn-text">Analizi Başlat</span>
+                    <span class="btn-icon"><i class="fa-solid fa-rocket"></i></span>
+                    <span class="loader"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="ai-loading-overlay" class="ai-overlay hidden">
+        <div class="ai-loader-content">
+            <div class="ai-spinner">
+                <div class="circle outer"></div>
+                <div class="circle inner"></div>
+                <div class="icon-center"><i class="fa-solid fa-brain"></i></div>
+            </div>
+
+            <h2 class="ai-loading-title">Analiz Başlatılıyor...</h2>
+            <p class="ai-loading-subtitle" id="aiLoadingText">Veriler sunucuya iletiliyor</p>
+
+            <div class="ai-progress-bar">
+                <div class="ai-progress-fill" id="aiProgressBar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}

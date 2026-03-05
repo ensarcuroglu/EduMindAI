@@ -1,0 +1,572 @@
+﻿/* --- ABONELİK SAYFASI MODERN STİL PAKETİ --- */
+
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --secondary-color: #ec4899;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --shadow-soft: 0 10px 40px rgba(0,0,0,0.05);
+    --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+/* --- GENEL DÜZEN --- */
+.subscription-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 8rem 1.5rem;
+    color: var(--text-dark);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animasyonlar */
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- HEADER & SOSYAL KANIT --- */
+.pricing-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.social-proof-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.user-avatars {
+    display: flex;
+}
+
+    .user-avatars img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid white;
+        margin-left: -10px;
+    }
+
+        .user-avatars img:first-child {
+            margin-left: 0;
+        }
+
+.pricing-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 2.5rem auto;
+    line-height: 1.6;
+}
+
+/* --- TOGGLE SWITCH --- */
+.billing-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.5);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-flex;
+    backdrop-filter: blur(5px);
+    border: 1px solid white;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 24px;
+        width: 24px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+.badge-save {
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-left: 5px;
+    transition: 0.3s;
+}
+
+/* --- PRICING CARDS --- */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 5rem;
+    align-items: stretch;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 3rem 2rem;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+    /* Pro Kart Özellikleri */
+    .glass-card.pro {
+        background: rgba(255, 255, 255, 0.85);
+        border: 2px solid var(--primary-color);
+        box-shadow: var(--shadow-glow);
+        transform-style: preserve-3d; /* Tilt için gerekli */
+        z-index: 2;
+    }
+
+.card-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(20px);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 1.5rem;
+}
+
+    .card-header h3 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+.price-box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 1rem;
+    color: var(--text-dark);
+}
+
+.currency {
+    font-size: 1.5rem;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.amount {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.period {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+/* Özellik Listesi */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    flex-grow: 1;
+}
+
+    .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        color: var(--text-dark);
+    }
+
+        .feature-list li i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .feature-list li.disabled {
+            color: var(--text-light);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+            .feature-list li.disabled i {
+                color: #cbd5e1;
+            }
+
+/* Tooltips */
+.info-icon {
+    color: var(--text-light);
+    cursor: help;
+    font-size: 0.9rem;
+    margin-left: auto;
+    position: relative;
+}
+
+    .info-icon:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        right: 50%;
+        transform: translateX(50%);
+        background: #1e293b;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        width: max-content;
+        max-width: 200px;
+        z-index: 10;
+        margin-bottom: 8px;
+        pointer-events: none;
+    }
+
+/* Butonlar */
+.btn-plan {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-plan.primary {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    }
+
+        .btn-plan.primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+    .btn-plan.outline {
+        border: 2px solid #e2e8f0;
+        color: var(--text-dark);
+        background: transparent;
+    }
+
+        .btn-plan.outline:hover {
+            border-color: var(--text-dark);
+            background: white;
+        }
+
+/* Trust Badges */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+    .trust-item i {
+        font-size: 1.2rem;
+        color: var(--text-dark);
+    }
+
+/* --- TESTIMONIALS (Yorumlar) --- */
+.testimonials-section {
+    margin-bottom: 5rem;
+    text-align: center;
+}
+
+.testimonials-grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 5px;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+    .testimonials-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+.t-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    min-width: 280px;
+    max-width: 320px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: left;
+    scroll-snap-align: center;
+    border: 1px solid #f1f5f9;
+}
+
+.t-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.t-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.t-info h5 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.t-info span {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.t-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.stars {
+    color: #f59e0b;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* --- COMPARISON TABLE & FAQ --- */
+.comparison-section, .faq-section {
+    margin-bottom: 5rem;
+}
+
+.table-responsive {
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+    overflow-x: auto;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+    .compare-table th, .compare-table td {
+        padding: 1.2rem;
+        text-align: center;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+        .compare-table th.feature-col, .compare-table td:first-child {
+            text-align: left;
+        }
+
+        .compare-table th.pro-col {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+.faq-item {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    text-align: left;
+    background: none;
+    border: none;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease;
+    padding: 0 1.5rem;
+    color: var(--text-light);
+}
+
+.faq-item.active .faq-answer {
+    padding-bottom: 1.5rem;
+    max-height: 200px;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+/* --- STICKY MOBILE BAR --- */
+.sticky-mobile-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    z-index: 100;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .sticky-mobile-bar {
+        display: flex;
+    }
+
+    .subscription-wrapper {
+        padding-bottom: 100px;
+    }
+    /* Footer için yer aç */
+    .pricing-grid {
+        gap: 1.5rem;
+    }
+}

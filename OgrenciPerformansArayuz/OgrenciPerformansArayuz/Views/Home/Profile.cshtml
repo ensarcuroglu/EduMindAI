@@ -1,0 +1,150 @@
+﻿@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+}
+
+<div class="profile-wrapper fade-in">
+
+    <div class="profile-header glass-panel">
+        <div class="header-bg-decoration"></div>
+
+        <div class="profile-identity">
+            <div class="avatar-container">
+                <img src="https://ui-avatars.com/api/?name=Ogrenci&background=4F46E5&color=fff&size=150&bold=true" alt="Avatar" class="profile-img">
+                <div class="online-status" title="Aktif"></div>
+            </div>
+            <div class="identity-text">
+                <h1 class="student-name">Ensar Curoğlu <i class="fa-solid fa-circle-check verified-icon" title="Onaylı Hesap"></i></h1>
+                <p class="student-major">Bilişim Sistemleri Mühendisliği</p>
+                <p class="join-date"><i class="fa-regular fa-calendar"></i> Ekim 2023'ten beri üye</p>
+            </div>
+        </div>
+
+        <div class="level-container">
+            <div class="level-info">
+                <span class="current-level">Seviye <strong>5</strong></span>
+                <span class="xp-text">2450 / 3000 XP</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 82%;"></div>
+            </div>
+            <p class="next-reward">
+                <i class="fa-solid fa-gift"></i> Sonraki Ödül: <strong>"Focus Master" Rozeti</strong>
+            </p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon icon-purple"><i class="fa-solid fa-stopwatch"></i></div>
+            <div class="stat-info">
+                <h3>42.5 Saat</h3>
+                <p>Toplam Odaklanma</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-green"><i class="fa-solid fa-check-double"></i></div>
+            <div class="stat-info">
+                <h3>128 Görev</h3>
+                <p>Tamamlanan</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-orange"><i class="fa-solid fa-fire"></i></div>
+            <div class="stat-info">
+                <h3>12 Gün</h3>
+                <p>Mevcut Seri (Streak)</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-blue"><i class="fa-solid fa-brain"></i></div>
+            <div class="stat-info">
+                <h3>%85</h3>
+                <p>Verimlilik Skoru</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+
+        <div class="section-card glass-panel">
+            <div class="card-title">
+                <h2><i class="fa-solid fa-chart-simple"></i> Çalışma Tutarlılığı</h2>
+                <select class="time-select">
+                    <option>Son 3 Ay</option>
+                    <option>Bu Yıl</option>
+                </select>
+            </div>
+            <div class="heatmap-wrapper">
+                <div class="heatmap-grid" id="studyHeatmap">
+                </div>
+                <div class="heatmap-legend">
+                    <span>Az</span>
+                    <div class="legend-box l-0"></div>
+                    <div class="legend-box l-1"></div>
+                    <div class="legend-box l-2"></div>
+                    <div class="legend-box l-3"></div>
+                    <div class="legend-box l-4"></div>
+                    <span>Çok</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+
+            <div class="section-card glass-panel">
+                <div class="card-title">
+                    <h2><i class="fa-solid fa-medal"></i> Rozet Koleksiyonu</h2>
+                    <a href="#" class="view-all">Tümü</a>
+                </div>
+                <div class="badges-container">
+                    <div class="badge-item earned" title="İlk Adım: İlk seansını tamamladın">
+                        <div class="badge-icon"><i class="fa-solid fa-flag"></i></div>
+                        <span>Başlangıç</span>
+                    </div>
+                    <div class="badge-item earned" title="Erkenci Kuş: Sabah 06:00-09:00 arası çalıştın">
+                        <div class="badge-icon"><i class="fa-solid fa-sun"></i></div>
+                        <span>Erkenci</span>
+                    </div>
+                    <div class="badge-item earned" title="Seri: 7 gün üst üste çalıştın">
+                        <div class="badge-icon"><i class="fa-solid fa-fire"></i></div>
+                        <span>Alev Topu</span>
+                    </div>
+                    <div class="badge-item locked" title="Kilitli: 50 saat odaklanmaya ulaş">
+                        <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
+                        <span>Usta</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card glass-panel">
+                <div class="card-title">
+                    <h2><i class="fa-solid fa-bullseye"></i> Günlük Hedefler</h2>
+                </div>
+                <ul class="goals-list">
+                    <li class="goal-item completed">
+                        <div class="goal-check"><i class="fa-solid fa-check"></i></div>
+                        <span class="goal-text">2 Pomodoro Tamamla</span>
+                    </li>
+                    <li class="goal-item completed">
+                        <div class="goal-check"><i class="fa-solid fa-check"></i></div>
+                        <span class="goal-text">Veri Yapıları tekrarı</span>
+                    </li>
+                    <li class="goal-item">
+                        <div class="goal-check empty"></div>
+                        <span class="goal-text">İngilizce Makale Oku</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/profile.js" asp-append-version="true"></script>
+}

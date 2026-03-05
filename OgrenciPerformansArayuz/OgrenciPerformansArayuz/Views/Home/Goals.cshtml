@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Hedeflerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/goals.css" asp-append-version="true" />
+    <style>
+        /* Layout Override */
+        .main-wrapper {
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .main-content {
+            background: #F8FAFC;
+        }
+    </style>
+}
+
+<div class="main-wrapper">
+    <div class="wide-container">
+
+        <div class="goals-header animate-down">
+            <div class="header-text">
+                <h1 class="page-title">Hedef <span class="highlight">Yolculuğum</span></h1>
+                <p class="page-subtitle">Küçük adımlar, büyük zaferlere dönüşür. Hedeflerini belirle ve takibini yap.</p>
+            </div>
+            <button class="btn-add-goal" onclick="openModal()">
+                <div class="icon-plus"><i class="fa-solid fa-plus"></i></div>
+                <span>Yeni Hedef</span>
+            </button>
+        </div>
+
+        <div class="focus-section animate-up">
+            <div class="focus-card">
+                <div class="focus-left">
+                    <span class="focus-badge"><i class="fa-solid fa-star"></i> Bu Haftanın Odağı</span>
+                    <h2>Matematik Türev Konusunu Bitir</h2>
+                    <p>Konu anlatım videoları izlendi, sırada 100 soru çözmek var.</p>
+
+                    <div class="progress-area">
+                        <div class="progress-info">
+                            <span>%75 Tamamlandı</span>
+                            <span>Son 2 Gün</span>
+                        </div>
+                        <div class="progress-bar-lg">
+                            <div class="fill-lg" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="focus-right">
+                    <div class="illustration-box">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-row animate-up delay-1">
+            <div class="mini-stat-card">
+                <div class="stat-icon fire"><i class="fa-solid fa-fire"></i></div>
+                <div>
+                    <h3>12 Gün</h3>
+                    <small>Zinciri Kırma!</small>
+                </div>
+            </div>
+            <div class="mini-stat-card">
+                <div class="stat-icon check"><i class="fa-solid fa-circle-check"></i></div>
+                <div>
+                    <h3>8 Hedef</h3>
+                    <small>Bu ay tamamlandı</small>
+                </div>
+            </div>
+            <div class="ai-suggestion-btn" onclick="generateAiGoal()">
+                <div class="ai-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="ai-text">
+                    <strong>Kararsız mısın?</strong>
+                    <span>AI senin için bir hedef oluştursun.</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+        </div>
+
+        <div class="goals-grid-section animate-up delay-2">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="filterGoals('all')">Tümü</button>
+                <button class="tab-btn" onclick="filterGoals('academic')">Akademik</button>
+                <button class="tab-btn" onclick="filterGoals('personal')">Kişisel</button>
+            </div>
+
+            <div class="goals-grid" id="goalsContainer">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal-overlay hidden" id="goalModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Yeni Hedef Oluştur</h3>
+            <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="newGoalForm">
+            <div class="form-group">
+                <label>Hedef Başlığı</label>
+                <input type="text" id="goalTitle" placeholder="Örn: Günde 50 sayfa kitap oku" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="goalCategory">
+                        <option value="Academic">Akademik</option>
+                        <option value="Personal">Kişisel</option>
+                        <option value="Health">Sağlık</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Bitiş Tarihi</label>
+                    <input type="date" id="goalDate" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Hedef Miktarı (Adet/Saat/Sayfa)</label>
+                <div class="input-with-icon">
+                    <input type="number" id="goalTarget" placeholder="Örn: 100" required>
+                    <span class="unit-label">Birim</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-save-goal">Hedefi Kaydet</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="~/js/goals.js" asp-append-version="true"></script>
+}

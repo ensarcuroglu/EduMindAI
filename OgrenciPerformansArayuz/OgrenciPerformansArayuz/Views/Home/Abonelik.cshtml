@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "EduMind Pro Abonelik";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/abonelik.css" asp-append-version="true" />
+}
+
+<div class="subscription-wrapper">
+
+    <!-- 1. HEADER & SOSYAL KANIT -->
+    <div class="pricing-header fade-in-up">
+        <div class="social-proof-banner">
+            <div class="user-avatars">
+                <img src="https://ui-avatars.com/api/?name=Ali&background=random" alt="User">
+                <img src="https://ui-avatars.com/api/?name=Ayse&background=random" alt="User">
+                <img src="https://ui-avatars.com/api/?name=Can&background=random" alt="User">
+            </div>
+            <span>15.000+ Öğrenci EduMind ile Başarıyor</span>
+        </div>
+
+        <h1>Potansiyelini <span class="text-gradient">EduMind Pro</span> ile Açığa Çıkar</h1>
+        <p class="subtitle">Sınavlara hazırlanırken yalnız değilsin. Yapay zeka destekli kişisel koçunla tanış.</p>
+
+        <!-- Toggle Switch -->
+        <div class="billing-toggle-container">
+            <span class="billing-label">Aylık</span>
+            <label class="switch">
+                <input type="checkbox" id="billingToggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="billing-label">Yıllık <span class="badge-save">%20 İndirim</span></span>
+        </div>
+    </div>
+
+    <!-- 2. PRICING CARDS -->
+    <div class="pricing-grid fade-in-up" style="animation-delay: 0.1s;">
+
+        <!-- Free Plan -->
+        <div class="glass-card">
+            <div class="card-header">
+                <h3>Başlangıç</h3>
+                <p>Temel özelliklerle tanış.</p>
+                <div class="price-box">
+                    <span class="currency">₺</span>
+                    <span class="amount">0</span>
+                    <span class="period">/ay</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> 3 Pomodoro / Gün</li>
+                <li>
+                    <i class="fa-solid fa-check"></i> Görev Takibi
+                    <i class="fa-solid fa-circle-info info-icon" data-tooltip="Günlük yapılacaklar listesi oluştur"></i>
+                </li>
+                <li><i class="fa-solid fa-check"></i> Temel İstatistikler</li>
+                <li class="disabled"><i class="fa-solid fa-xmark"></i> Sınırsız AI Mentor</li>
+                <li class="disabled"><i class="fa-solid fa-xmark"></i> Sınav Analizi</li>
+            </ul>
+            <a href="#" class="btn-plan outline">Mevcut Plan</a>
+        </div>
+
+        <!-- PRO Plan (Tilt Effect) -->
+        <div class="glass-card pro" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="card-badge">EN POPÜLER</div>
+            <div class="glow-effect"></div>
+
+            <div class="card-header">
+                <h3>EduMind <span class="pro-text">PRO</span></h3>
+                <p>Sınırları kaldır, hedefine ulaş.</p>
+                <div class="price-box">
+                    <span class="currency">₺</span>
+                    <span class="amount" id="proPrice">49</span>
+                    <span class="period">/ay</span>
+                </div>
+                <small class="bill-note" id="billNote">Her ay faturalandırılır</small>
+            </div>
+
+            <ul class="feature-list">
+                <li>
+                    <i class="fa-solid fa-infinity"></i> <strong>Sınırsız</strong> Pomodoro & Mola
+                    <i class="fa-solid fa-circle-info info-icon" data-tooltip="İstediğin kadar odaklanma seansı başlat"></i>
+                </li>
+                <li>
+                    <i class="fa-solid fa-robot"></i> <strong>AI Mentor</strong> (7/24)
+                    <i class="fa-solid fa-circle-info info-icon" data-tooltip="Soru sor, konu anlatımı iste, dertleş"></i>
+                </li>
+                <li><i class="fa-solid fa-chart-pie"></i> Detaylı Sınav Analizi</li>
+                <li><i class="fa-solid fa-calendar-check"></i> Kişisel Ders Programı</li>
+                <li><i class="fa-solid fa-medal"></i> Reklamsız Deneyim</li>
+            </ul>
+
+            <button class="btn-plan primary" id="btnBuy" onclick="startTrial(this)">
+                <span>Hemen Başla (7 Gün Ücretsiz)</span>
+            </button>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="trust-item">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>SSL Güvenli</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span>İstediğin Zaman İptal</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. TESTIMONIALS (Yorumlar) -->
+    <div class="testimonials-section fade-in-up">
+        <h2>Öğrencilerimiz Ne Diyor?</h2>
+        <div class="testimonials-grid">
+            <div class="t-card">
+                <div class="t-header">
+                    <img src="https://ui-avatars.com/api/?name=Elif+Y&background=FFEDD5&color=C2410C" class="t-avatar" alt="User">
+                    <div class="t-info"><h5>Elif Y.</h5><span>YKS Öğrencisi</span></div>
+                </div>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="t-text">"Matematik netlerim 2 ayda arttı. AI Mentor sanki gerçek bir hoca gibi hatalarımı açıklıyor."</p>
+            </div>
+            <div class="t-card">
+                <div class="t-header">
+                    <img src="https://ui-avatars.com/api/?name=Mert+K&background=DBEAFE&color=1E40AF" class="t-avatar" alt="User">
+                    <div class="t-info"><h5>Mert K.</h5><span>LGS Öğrencisi</span></div>
+                </div>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="t-text">"Pomodoro sayacı sayesinde odaklanma sürem 2 katına çıktı. Artık çalışırken sıkılmıyorum."</p>
+            </div>
+            <div class="t-card">
+                <div class="t-header">
+                    <img src="https://ui-avatars.com/api/?name=Selin+A&background=FCE7F3&color=9D174D" class="t-avatar" alt="User">
+                    <div class="t-info"><h5>Selin A.</h5><span>Üniversite Hazırlık</span></div>
+                </div>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                <p class="t-text">"Yıllık planı aldım, fiyatına göre sunduğu özellikler inanılmaz. Kesinlikle tavsiye ederim."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. COMPARISON TABLE -->
+    <div class="comparison-section">
+        <h2>Detaylı Karşılaştırma</h2>
+        <div class="table-responsive">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th class="feature-col">Özellikler</th>
+                        <th>Başlangıç</th>
+                        <th class="pro-col">PRO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Odaklanma Modu</td>
+                        <td>Günlük 3 Seans</td>
+                        <td><i class="fa-solid fa-infinity text-primary"></i> Sınırsız</td>
+                    </tr>
+                    <tr>
+                        <td>AI Mentor Erişimi</td>
+                        <td>Kısıtlı (5 Soru/Gün)</td>
+                        <td><i class="fa-solid fa-check text-primary"></i> Sınırsız Sohbet</td>
+                    </tr>
+                    <tr>
+                        <td>Raporlama</td>
+                        <td>Haftalık Özet</td>
+                        <td>Anlık & Detaylı Grafik</td>
+                    </tr>
+                    <tr>
+                        <td>Reklamlar</td>
+                        <td>Var</td>
+                        <td><i class="fa-solid fa-ban text-primary"></i> Yok (Temiz Ekran)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 5. FAQ -->
+    <div class="faq-section">
+        <h2>Sıkça Sorulan Sorular</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <button class="faq-question">Ödeme güvenli mi? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Kesinlikle. Ödemeler Iyzico/Stripe altyapısı ile 256-bit SSL koruması altında gerçekleşir. Kart bilgilerini biz saklamayız.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Deneme süresi bitince ne olur? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>7 gün sonunda memnun kalırsan seçtiğin paket üzerinden devam eder. İptal edersen hiçbir ücret alınmaz.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Hangi paketi seçmeliyim? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Eğer sınav senesindeysen ve disiplinli çalışmak istiyorsan Yıllık paket en avantajlısıdır.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. STICKY MOBILE BAR -->
+    <div class="sticky-mobile-bar">
+        <div>
+            <small class="d-block text-muted">EduMind Pro</small>
+            <span class="fw-bold text-dark fs-5"><span id="stickyPrice">49</span>₺ <span class="fs-6 text-muted">/ay</span></span>
+        </div>
+        <button class="btn btn-primary rounded-pill px-4 fw-bold" onclick="startTrial(this)">PRO'yu Dene</button>
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Kütüphaneler -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script src="~/js/abonelik.js" asp-append-version="true"></script>
+}

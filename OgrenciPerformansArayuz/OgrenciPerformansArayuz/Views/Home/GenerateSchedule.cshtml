@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Flux AI Planlayıcı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/generateschedule.css" asp-append-version="true" />
+}
+
+<div class="schedule-app-container">
+
+    <!-- Ana Grid Layout -->
+    <div class="layout-grid">
+
+        <!-- 1. SOL PANEL (AYARLAR - STICKY) -->
+        <aside class="sidebar-wrapper custom-scrollbar">
+
+            <div class="sidebar-header">
+                <div class="brand-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Flux AI</div>
+                <h1 class="page-title">Planlayıcı</h1>
+                <p class="page-subtitle">Haftanı yapay zeka ile tasarla.</p>
+            </div>
+
+            <div class="sidebar-body">
+
+                <!-- Profil -->
+                <div class="config-group">
+                    <div class="group-title"><i class="fa-regular fa-user"></i> ÖĞRENCİ PROFİLİ</div>
+                    <div class="input-row">
+                        <div class="input-col">
+                            <select id="userProfile" class="input-modern">
+                                <option value="STANDARD" selected>Standart (09-23)</option>
+                                <option value="EARLY_BIRD">Erkenci Kuş (06-22)</option>
+                                <option value="NIGHT_OWL">Gece Kuşu (11-03)</option>
+                                <option value="POWER_GRINDER">Yüksek Performans</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mood-control mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small fw-bold text-muted">Enerji Modu</span>
+                            <span id="moodDisplay" class="badge bg-primary rounded-pill">5/10</span>
+                        </div>
+                        <input type="range" class="range-slider" min="1" max="10" step="1" id="userMoodScore" value="5">
+                    </div>
+
+                    <div class="toggle-group">
+                        <label class="toggle-btn-modern">
+                            <input type="checkbox" id="isExamWeek">
+                            <span class="toggle-content"><i class="fa-solid fa-fire"></i> Sınav Haftası</span>
+                        </label>
+                        <label class="toggle-btn-modern">
+                            <input type="checkbox" id="lazyMode">
+                            <span class="toggle-content"><i class="fa-solid fa-bed"></i> Tembel Mod</span>
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="border-light my-4">
+
+                <!-- Görev Ekleme -->
+                <div class="config-group">
+                    <div class="group-title"><i class="fa-solid fa-plus-circle"></i> GÖREV / DERS EKLE</div>
+
+                    <form id="addTaskForm">
+                        <div class="mb-3">
+                            <input type="text" id="taskName" class="input-modern" placeholder="Ders adı (Örn: Matematik)" required autocomplete="off">
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-col">
+                                <input type="number" id="taskDuration" class="input-modern" value="60" min="15" step="15">
+                                <span class="input-suffix">dk</span>
+                            </div>
+                            <div class="input-col">
+                                <input type="number" id="taskDifficulty" class="input-modern" value="5" min="1" max="10">
+                                <span class="input-suffix">lvl</span>
+                            </div>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-col">
+                                <select id="taskCategory" class="input-modern">
+                                    <option value="MATH">Matematik</option>
+                                    <option value="SCI">Fen Bilimleri</option>
+                                    <option value="LIT">Edebiyat/Sosyal</option>
+                                    <option value="LANG">Yabancı Dil</option>
+                                    <option value="CS">Yazılım</option>
+                                    <option value="OTHER">Diğer</option>
+                                </select>
+                            </div>
+                            <div class="input-col">
+                                <select id="taskPriority" class="input-modern">
+                                    <option value="LOW">Düşük</option>
+                                    <option value="MEDIUM" selected>Orta</option>
+                                    <option value="HIGH">Yüksek</option>
+                                    <option value="CRITICAL">KRİTİK</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <select id="taskDeadline" class="input-modern">
+                                <option value="">Son Gün: Yok (Esnek)</option>
+                                <option value="0">Bugün</option>
+                                <option value="1">Yarın</option>
+                                <option value="2">2 Gün Sonra</option>
+                                <option value="3">3 Gün Sonra</option>
+                                <option value="5">5 Gün Sonra</option>
+                            </select>
+                        </div>
+
+                        <div class="form-check mb-3 ms-1">
+                            <input class="form-check-input" type="checkbox" id="isNewTopic">
+                            <label class="form-check-label text-muted small fw-bold" for="isNewTopic">
+                                Yeni Konu (Öğrenme)
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-add">
+                            <i class="fa-solid fa-plus"></i> Listeye Ekle
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Liste -->
+                <div class="mini-list-wrapper mt-4">
+                    <div class="mini-list-header">
+                        <span>EKLENENLER (<span id="taskCountBadge">0</span>)</span>
+                        <button onclick="clearAllTasks()" class="btn-link-danger">TEMİZLE</button>
+                    </div>
+                    <div id="taskListContainer" class="mini-list-content custom-scrollbar">
+                        <div class="p-4 text-center text-muted small">
+                            <i class="fa-solid fa-clipboard-list fa-2x mb-2 text-light"></i><br>
+                            Henüz ders eklenmedi.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="btnGenerateSchedule" onclick="submitScheduleRequest()" class="btn-generate" disabled>
+                    <i class="fa-solid fa-bolt"></i> PROGRAMI OLUŞTUR
+                </button>
+            </div>
+        </aside>
+
+        <!-- 2. SAĞ PANEL (İÇERİK) -->
+        <main class="content-area">
+
+            <!-- MODERN LOADING OVERLAY -->
+            <div id="loadingOverlay" class="loading-overlay d-none">
+                <div class="glass-loader-box">
+                    <div class="ai-core-container">
+                        <div class="core-ring outer"></div>
+                        <div class="core-ring inner"></div>
+                        <div class="core-pulse"></div>
+                    </div>
+                    <h3 class="loader-title">Flux AI <span class="text-gradient">Oluşturuyor</span></h3>
+                    <p id="loadingText" class="loader-desc">Veriler işleniyor...</p>
+                </div>
+            </div>
+
+            <!-- BOŞ DURUM (Başlangıçta Görünür) -->
+            <div id="calendarEmptyState" class="empty-state-wrapper">
+                <div class="empty-icon"><i class="fa-regular fa-calendar-plus"></i></div>
+                <h2 class="empty-title">Programın Henüz Boş</h2>
+                <p class="empty-desc">
+                    Sol panelden derslerini ekle. Yapay zeka senin için en verimli saatleri belirleyip programı oluştursun.
+                </p>
+            </div>
+
+            <!-- TAKVİM VE SONUÇLAR (Başlangıçta Gizli) -->
+            <div id="calendarView" class="d-none flex-column w-100">
+
+                <!-- Başlık -->
+                <div class="calendar-header-card">
+                    <div class="coach-box">
+                        <img src="https://ui-avatars.com/api/?name=AI&background=6366f1&color=fff&bold=true" class="coach-img">
+                        <div class="coach-text">
+                            <h4>Flux AI Koç</h4>
+                            <p id="topCoachNote">Programın hazır! Başarılar.</p>
+                        </div>
+                    </div>
+                    <div class="stat-tags d-none d-md-flex">
+                        <div class="stat-tag"><i class="fa-solid fa-layer-group"></i> <span id="totalTasksScheduled">0</span> Görev</div>
+                        <div class="stat-tag"><i class="fa-regular fa-clock"></i> <span id="profileUsedLabel">Standart</span></div>
+                    </div>
+                </div>
+
+                <!-- HAFTALIK GRID -->
+                <div class="week-grid-container custom-scrollbar">
+                    <!-- Pazartesi -->
+                    <div class="day-column" data-day="Pazartesi">
+                        <div class="day-header"><span class="day-name">Pazartesi</span></div>
+                        <div class="day-body" id="col-Pazartesi"></div>
+                    </div>
+                    <!-- Salı -->
+                    <div class="day-column" data-day="Salı">
+                        <div class="day-header"><span class="day-name">Salı</span></div>
+                        <div class="day-body" id="col-Salı"></div>
+                    </div>
+                    <!-- Çarşamba -->
+                    <div class="day-column" data-day="Çarşamba">
+                        <div class="day-header"><span class="day-name">Çarşamba</span></div>
+                        <div class="day-body" id="col-Çarşamba"></div>
+                    </div>
+                    <!-- Perşembe -->
+                    <div class="day-column" data-day="Perşembe">
+                        <div class="day-header"><span class="day-name">Perşembe</span></div>
+                        <div class="day-body" id="col-Perşembe"></div>
+                    </div>
+                    <!-- Cuma -->
+                    <div class="day-column" data-day="Cuma">
+                        <div class="day-header"><span class="day-name">Cuma</span></div>
+                        <div class="day-body" id="col-Cuma"></div>
+                    </div>
+                    <!-- Cumartesi -->
+                    <div class="day-column weekend" data-day="Cumartesi">
+                        <div class="day-header"><span class="day-name">Cumartesi</span></div>
+                        <div class="day-body" id="col-Cumartesi"></div>
+                    </div>
+                    <!-- Pazar -->
+                    <div class="day-column weekend" data-day="Pazar">
+                        <div class="day-header"><span class="day-name">Pazar</span></div>
+                        <div class="day-body" id="col-Pazar"></div>
+                    </div>
+                </div>
+
+                <!-- ANALİZ RAPORU -->
+                <div class="analysis-wrapper mt-4">
+                    <h3 class="analysis-title"><i class="fa-solid fa-wand-magic-sparkles text-primary"></i> Yapay Zeka Analizi</h3>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted mb-3 text-uppercase small">AI Stratejisi</h6>
+                            <ul id="aiRationaleList" class="analysis-list"></ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted mb-3 text-uppercase small">Koç Notları</h6>
+                            <ul id="coachNotesList" class="analysis-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/generateschedule.js" asp-append-version="true"></script>
+}

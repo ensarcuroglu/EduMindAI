@@ -1,0 +1,24 @@
+# ASP.NET Core MVC (Frontend)
+[Bb]in/
+[Oo]bj/
+appsettings.Development.json
+
+# Python (Backend)
+__pycache__/
+venv/
+env/
+.env
+
+# Olası Büyük Veri ve Model Dosyaları
+*.csv
+*.dat
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# IDE ve İşletim Sistemi Dosyaları
+.vs/
+.vscode/
+.idea/
+.DS_Store

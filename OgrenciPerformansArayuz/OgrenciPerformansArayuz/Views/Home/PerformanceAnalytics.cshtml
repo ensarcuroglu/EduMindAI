@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "Performans Analizi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <!-- Google Fonts: Orbitron (Başlıklar) ve Rajdhani (Veriler) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/performanceanalytics.css" />
+}
+
+<div class="cyber-wrapper">
+    <!-- Arka Plan Efektleri -->
+    <canvas id="particleCanvas"></canvas>
+    <div class="scanline-overlay"></div>
+    <div class="grid-floor"></div>
+
+    <div class="container-fluid content-layer">
+
+        <!-- Header HUD -->
+        <div class="row mb-4 align-items-center header-hud">
+            <div class="col-md-6">
+                <div class="glitch-wrapper">
+                    <h1 class="page-title glitch" data-text="SİSTEM ANALİZİ // v.2.4">SİSTEM ANALİZİ // v.2.4</h1>
+                </div>
+                <p class="subtitle text-neon-blue">
+                    <span class="blinking-cursor">></span> ÖĞRENCİ PERFORMANS METRİKLERİ YÜKLENİYOR...
+                </p>
+            </div>
+            <div class="col-md-6 text-end d-none d-md-block">
+                <div class="live-clock">
+                    <span id="hexTime">0X:1A:4F</span>
+                    <span class="status-badge">ONLINE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Üst KPI Kartları -->
+        <div class="row g-4 mb-4">
+            <!-- Kart 1: Verimlilik -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="cyber-card card-kpi" data-tilt>
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-body">
+                        <div class="icon-box icon-purple">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h6 class="kpi-title">BİLİŞSEL VERİMLİLİK</h6>
+                            <div class="kpi-value counter" data-target="87">0</div>
+                            <span class="kpi-unit">%</span>
+                        </div>
+                        <div class="progress cyber-progress">
+                            <div class="progress-bar bg-purple" style="width: 87%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 2: Odak Süresi -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="cyber-card card-kpi" data-tilt>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-body">
+                        <div class="icon-box icon-blue">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h6 class="kpi-title">NET ODAK SÜRESİ</h6>
+                            <div class="kpi-value counter" data-target="42">0</div>
+                            <span class="kpi-unit">SAAT</span>
+                        </div>
+                        <div class="kpi-trend text-success">
+                            <i class="fa-solid fa-caret-up"></i> %12 Artış
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 3: XP/Seviye -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="cyber-card card-kpi" data-tilt>
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-body">
+                        <div class="icon-box icon-cyan">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h6 class="kpi-title">TOPLAM XP</h6>
+                            <div class="kpi-value counter" data-target="12450">0</div>
+                        </div>
+                        <span class="level-badge">LVL 12</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 4: Tamamlanan Görevler -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="cyber-card card-kpi" data-tilt>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-body">
+                        <div class="icon-box icon-pink">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                        <div class="kpi-content">
+                            <h6 class="kpi-title">GÖREV TAMAMLAMA</h6>
+                            <div class="kpi-value counter" data-target="142">0</div>
+                            <span class="kpi-unit">/ 160</span>
+                        </div>
+                        <div class="mini-chart" id="taskMiniChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ana Grafik Bölümü -->
+        <div class="row g-4 mb-4">
+            <!-- Büyük Grafik: Performans Trendi -->
+            <div class="col-lg-8">
+                <div class="cyber-card h-100">
+                    <div class="card-header-cyber">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>NÖRAL AKTİVİTE / PERFORMANS AKIŞI</span>
+                        <div class="dots"></div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="performanceChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Radar Grafik: Yetenek Haritası -->
+            <div class="col-lg-4">
+                <div class="cyber-card h-100">
+                    <div class="card-header-cyber">
+                        <i class="fa-solid fa-bullseye"></i>
+                        <span>YETENEK MATRİSİ</span>
+                        <div class="dots"></div>
+                    </div>
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <div class="radar-wrapper">
+                            <canvas id="skillsRadar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alt Bölüm: Isı Haritası & AI Terminal -->
+        <div class="row g-4">
+            <!-- AI Terminal -->
+            <div class="col-lg-6">
+                <div class="cyber-card ai-terminal h-100">
+                    <div class="terminal-header">
+                        <div class="t-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="t-title">EDUMIND_AI_CORE.EXE</span>
+                    </div>
+                    <div class="terminal-body" id="terminalOutput">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">USER@EDUMIND:~$</span>
+                        <span class="cursor">_</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Çalışma Isı Haritası (Grid Style) -->
+            <div class="col-lg-6">
+                <div class="cyber-card h-100">
+                    <div class="card-header-cyber">
+                        <i class="fa-solid fa-border-all"></i>
+                        <span>VERİMLİLİK ISI HARİTASI</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="heatmap-grid" id="heatmapGrid">
+                            <!-- JS ile oluşturulacak 52 haftalık grid -->
+                        </div>
+                        <div class="heatmap-legend">
+                            <span>Düşük</span>
+                            <div class="gradient-bar"></div>
+                            <span>Yüksek</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/performanceanalytics.js"></script>
+}

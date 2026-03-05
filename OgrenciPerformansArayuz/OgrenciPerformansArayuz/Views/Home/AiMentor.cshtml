@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "AI Mentor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/aimentor.css" asp-append-version="true" />
+    <!-- Kod blokları renklendirmesi için (Highlight.js) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+}
+
+<div class="mentor-layout">
+
+    <!-- Arka Plan Efektleri -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- SOL PANEL: Geçmiş ve Araçlar -->
+    <aside class="mentor-sidebar" id="mentorSidebar">
+        <div class="sidebar-header">
+            <button class="new-chat-btn" onclick="resetChat()">
+                <i class="fa-solid fa-plus"></i>
+                <span>Yeni Konuşma</span>
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <h4 class="section-title">Hızlı Araçlar</h4>
+            <div class="tools-grid">
+                <button class="tool-card" onclick="sendSuggestion('Bana bir sınav çalışma kampı programı hazırla.')">
+                    <div class="icon bg-red"><i class="fa-solid fa-fire"></i></div>
+                    <span>Sınav Kampı</span>
+                </button>
+                <button class="tool-card" onclick="sendSuggestion('Bu konunun özetini madde madde çıkar.')">
+                    <div class="icon bg-blue"><i class="fa-solid fa-file-lines"></i></div>
+                    <span>Özet Çıkar</span>
+                </button>
+                <button class="tool-card" onclick="sendSuggestion('Bu kod bloğundaki hatayı bul ve açıkla.')">
+                    <div class="icon bg-purple"><i class="fa-solid fa-code"></i></div>
+                    <span>Kod Hocası</span>
+                </button>
+                <button class="tool-card" onclick="sendSuggestion('Benimle İngilizce pratiği yap.')">
+                    <div class="icon bg-green"><i class="fa-solid fa-language"></i></div>
+                    <span>Dil Pratiği</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sidebar-section scrollable">
+            <h4 class="section-title">Oturum Geçmişi</h4>
+            <div class="history-list" id="historyList">
+                <!-- JS ile dinamik eklenebilir veya statik kalabilir -->
+                <div class="history-item active">
+                    <i class="fa-regular fa-message"></i>
+                    <span class="text-truncate">Mevcut Oturum</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-mini-card">
+                <div class="status-indicator online"></div>
+                <div class="info">
+                    <span class="name">EduMind AI</span>
+                    <span class="quota">Durum: Aktif</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- SAĞ PANEL: Chat Alanı -->
+    <main class="mentor-main">
+
+        <!-- Üst Bar -->
+        <header class="chat-topbar">
+            <button class="mobile-menu-toggle d-lg-none" id="sidebarToggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="ai-persona">
+                <div class="avatar-ring">
+                    <!-- Avatar resmi -->
+                    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="AI Avatar">
+                </div>
+                <div class="persona-details">
+                    <h3>EduMind Mentor <span class="badge-v">Gemini 2.0</span></h3>
+                    <p>Öğrenme Asistanı & Akademik Rehber</p>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="action-btn" title="Temizle" onclick="resetChat()"><i class="fa-solid fa-broom"></i></button>
+            </div>
+        </header>
+
+        <!-- Mesaj Alanı -->
+        <div class="chat-container" id="chatContainer">
+
+            <!-- Boş Durum (Zero State) -->
+            <div class="empty-state" id="emptyState">
+                <div class="logo-anim">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h2>Selam! Zihnini bugün nasıl aydınlatabilirim?</h2>
+                <p class="subtitle">Senin için karmaşık konuları basitleştirebilir, çalışma programı hazırlayabilir veya sadece motive edebilirim.</p>
+
+                <div class="suggestion-cards">
+                    <div class="s-card" onclick="sendSuggestion('Feynman tekniği ile türev mantığını anlat.')">
+                        <div class="s-icon">🧠</div>
+                        <div class="s-text">Feynman Tekniği ile Türev</div>
+                    </div>
+                    <div class="s-card" onclick="sendSuggestion('Yarın matematik sınavım var, bana acil durum planı yap.')">
+                        <div class="s-icon">📅</div>
+                        <div class="s-text">Sınav Tekrar Planı</div>
+                    </div>
+                    <div class="s-card" onclick="sendSuggestion('Python\'da Recursion (Özyineleme) nedir? Basit örnek ver.')">
+                        <div class="s-icon">💻</div>
+                        <div class="s-text">Kodlama: Recursion Nedir?</div>
+                    </div>
+                    <div class="s-card" onclick="sendSuggestion('Çok stresliyim, bana bir koç gibi motivasyon konuşması yap.')">
+                        <div class="s-icon">✨</div>
+                        <div class="s-text">Motivasyon Konuşması</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mesajlar Buraya Eklenecek -->
+            <div class="messages-wrapper" id="messagesWrapper">
+                <!-- JS ile doldurulacak -->
+            </div>
+
+            <!-- Yazıyor Animasyonu -->
+            <div class="typing-indicator hidden" id="typingIndicator">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <div class="scroll-anchor" id="scrollAnchor"></div>
+        </div>
+
+        <!-- Alt Input Alanı -->
+        <div class="input-area-wrapper">
+            <div class="input-container glass-morphism">
+                <button class="attach-btn" title="Dosya/Resim Yükle (Yakında)">
+                    <i class="fa-solid fa-paperclip"></i>
+                </button>
+                <textarea id="chatInput" rows="1" placeholder="Bir soru sor... (Shift+Enter yeni satır)"></textarea>
+                <button class="send-btn" id="sendBtn" onclick="handleSend()">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="footer-disclaimer">
+                EduMind AI hata yapabilir. Önemli bilgileri kontrol et.
+            </div>
+        </div>
+
+    </main>
+</div>
+
+@section Scripts {
+    <!-- Markdown Renderlama Kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Kod Renklendirme Kütüphanesi -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Ana Logic Dosyamız -->
+    <script src="~/js/aimentor.js" asp-append-version="true"></script>
+}

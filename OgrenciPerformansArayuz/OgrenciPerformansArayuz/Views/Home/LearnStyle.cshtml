@@ -1,0 +1,270 @@
+﻿@{
+    ViewData["Title"] = "AI Öğrenme Stili Analizi";
+}
+
+<link rel="stylesheet" href="~/css/learnstyle.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Arka plan efektleri -->
+<div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+</div>
+
+<div class="container-fluid learn-style-container position-relative">
+    <div class="row justify-content-center">
+        <!-- SOL KOLON: Veri Giriş Formu -->
+        <div class="col-lg-5 col-md-12 mb-4">
+            <div class="card glass-card input-card h-100">
+                <div class="card-header border-0 pb-0">
+                    <h3 class="gradient-text"><i class="fa-solid fa-brain me-2"></i>Öğrenci Profili</h3>
+                    <p class="text-muted small">Yapay zeka analizi için verileri giriniz.</p>
+                </div>
+                <div class="card-body">
+                    <form id="learningStyleForm">
+
+                        <!-- 1. Kişisel Veriler -->
+                        <div class="form-section">
+                            <h6 class="section-title"><i class="fa-solid fa-id-card me-2"></i>Kişisel Veriler</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="Age" class="form-label">Yaş</label>
+                                    <input type="number" class="form-control" id="Age" value="21" min="10" max="100" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Gender" class="form-label">Cinsiyet</label>
+                                    <select class="form-select" id="Gender">
+                                        <option value="1">Erkek</option>
+                                        <option value="0">Kadın</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Akademik Alışkanlıklar -->
+                        <div class="form-section mt-4">
+                            <h6 class="section-title"><i class="fa-solid fa-graduation-cap me-2"></i>Akademik Alışkanlıklar</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="StudyHours" class="form-label">Haftalık Çalışma (Saat)</label>
+                                    <div class="input-group">
+                                        <input type="number" step="1" class="form-control" id="StudyHours" value="20" min="0" max="168" required>
+                                        <span class="input-group-text"><i class="fa-regular fa-clock"></i></span>
+                                    </div>
+                                    <div class="form-text small opacity-75">Ders, etüt ve ödevler dahil toplam süre.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Attendance" class="form-label">Derse Devam (%)</label>
+                                    <input type="number" class="form-control" id="Attendance" value="85" max="100" required>
+                                </div>
+
+                                <!-- Online Kurslar (Sayısal 0-20) -->
+                                <div class="col-md-6">
+                                    <label for="OnlineCourses" class="form-label">Online Kurs Sayısı</label>
+                                    <input type="number" class="form-control" id="OnlineCourses" value="2" min="0" max="20" required>
+                                </div>
+
+                                <!-- Materyal Erişimi (0,1,2) -->
+                                <div class="col-md-6">
+                                    <label for="Resources" class="form-label">Materyal Erişimi</label>
+                                    <select class="form-select" id="Resources">
+                                        <option value="0">Düşük (Sınırlı)</option>
+                                        <option value="1" selected>Orta (Standart)</option>
+                                        <option value="2">Yüksek (Zengin)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="AssignmentCompletion" class="form-label d-flex justify-content-between">
+                                        <span>Ödev Tamamlama</span>
+                                        <span class="fw-bold text-primary" id="assignmentOutput">80%</span>
+                                    </label>
+                                    <input type="range" class="form-range custom-range" id="AssignmentCompletion" min="0" max="100" value="80" oninput="document.getElementById('assignmentOutput').innerText = this.value + '%'">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Psikolojik & Motivasyon -->
+                        <div class="form-section mt-4">
+                            <h6 class="section-title"><i class="fa-solid fa-puzzle-piece me-2"></i>Motivasyon & Stres</h6>
+                            <div class="row g-3">
+                                <!-- Motivasyon (0,1,2) -->
+                                <div class="col-md-6">
+                                    <label for="Motivation" class="form-label">Motivasyon</label>
+                                    <select class="form-select" id="Motivation">
+                                        <option value="0">Düşük</option>
+                                        <option value="1" selected>Orta</option>
+                                        <option value="2">Yüksek</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="StressLevel" class="form-label">Stres Seviyesi</label>
+                                    <select class="form-select" id="StressLevel">
+                                        <option value="0">Az</option>
+                                        <option value="1" selected>Orta</option>
+                                        <option value="2">Çok</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Diğer Faktörler (Checkboxlar) -->
+                        <div class="form-section mt-4">
+                            <h6 class="section-title mb-3"><i class="fa-solid fa-bolt me-2"></i>Ekstra Faktörler (Var/Yok)</h6>
+                            <div class="d-flex flex-wrap gap-2 switch-container">
+                                <div class="toggle-pill">
+                                    <input type="checkbox" id="Internet" checked>
+                                    <label for="Internet">İnternet</label>
+                                </div>
+                                <div class="toggle-pill">
+                                    <input type="checkbox" id="Discussions" checked>
+                                    <label for="Discussions">Tartışma</label>
+                                </div>
+                                <div class="toggle-pill">
+                                    <input type="checkbox" id="EduTech" checked>
+                                    <label for="EduTech">Teknoloji</label>
+                                </div>
+                                <div class="toggle-pill">
+                                    <input type="checkbox" id="Extracurricular" checked>
+                                    <label for="Extracurricular">Sosyal Aktivite</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-5">
+                            <button type="submit" class="btn btn-analyze" id="analyzeBtn">
+                                <span class="btn-text">ANALİZ ET <i class="fa-solid fa-rocket ms-2"></i></span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAĞ KOLON: Sonuçlar ve Bekleme Ekranı -->
+        <div class="col-lg-7 col-md-12">
+
+            <!-- Placeholder (YENİ TASARIM - ANIMASYONLU) -->
+            <div id="resultPlaceholder" class="glass-card empty-state-card d-flex align-items-center justify-content-center">
+                <div class="text-center p-4">
+
+                    <!-- Animasyonlu İkon Alanı -->
+                    <div class="ai-waiting-visual mb-4">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay"></div>
+                        <div class="icon-box">
+                            <i class="fa-solid fa-brain-circuit fa-3x gradient-icon"></i>
+                        </div>
+                        <!-- Yüzen Partiküller -->
+                        <div class="particle p-1"><i class="fa-solid fa-plus"></i></div>
+                        <div class="particle p-2"><i class="fa-solid fa-circle"></i></div>
+                        <div class="particle p-3"><i class="fa-solid fa-square"></i></div>
+                    </div>
+
+                    <h3 class="fw-bold mb-2">Öğrenme Profilini Keşfet</h3>
+                    <p class="text-muted mb-4 px-lg-5">
+                        Yapay zeka modelimiz, senin için en verimli çalışma yöntemini analiz etmeye hazır.
+                    </p>
+
+                    <!-- Küçük Adım Rehberi -->
+                    <div class="steps-container d-inline-flex align-items-center justify-content-center p-3 rounded-4 glass-inset">
+                        <div class="step-item active">
+                            <div class="step-icon"><i class="fa-regular fa-pen-to-square"></i></div>
+                            <span class="step-text">Formu Doldur</span>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <span class="step-text">Analiz Et</span>
+                        </div>
+                        <div class="step-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                            <span class="step-text">Sonuç Al</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sonuç Paneli (Başlangıçta Gizli) -->
+            <div id="resultPanel" class="d-none">
+
+                <!-- Skor Kartı -->
+                <div class="card glass-card result-card mb-4">
+                    <div class="card-body text-center p-4">
+                        <h6 class="text-uppercase ls-2 text-secondary mb-2">Baskın Öğrenme Stili</h6>
+                        <h1 class="display-4 fw-bold gradient-text" id="dominantStyleText">--</h1>
+
+                        <div class="progress-container mt-4">
+                            <!-- Visual -->
+                            <div class="progress-wrapper mb-2">
+                                <div class="d-flex justify-content-between small fw-bold mb-1">
+                                    <span><i class="fa-solid fa-eye text-info me-1"></i> Görsel</span>
+                                    <span id="visualVal">0%</span>
+                                </div>
+                                <div class="progress custom-progress">
+                                    <div id="visualBar" class="progress-bar bg-gradient-info" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Auditory -->
+                            <div class="progress-wrapper mb-2">
+                                <div class="d-flex justify-content-between small fw-bold mb-1">
+                                    <span><i class="fa-solid fa-ear-listen text-warning me-1"></i> İşitsel</span>
+                                    <span id="auditoryVal">0%</span>
+                                </div>
+                                <div class="progress custom-progress">
+                                    <div id="auditoryBar" class="progress-bar bg-gradient-warning" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Read/Write -->
+                            <div class="progress-wrapper mb-2">
+                                <div class="d-flex justify-content-between small fw-bold mb-1">
+                                    <span><i class="fa-solid fa-book-open text-success me-1"></i> Okuma/Yazma</span>
+                                    <span id="readWriteVal">0%</span>
+                                </div>
+                                <div class="progress custom-progress">
+                                    <div id="readWriteBar" class="progress-bar bg-gradient-success" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Kinesthetic -->
+                            <div class="progress-wrapper">
+                                <div class="d-flex justify-content-between small fw-bold mb-1">
+                                    <span><i class="fa-solid fa-person-running text-danger me-1"></i> Kinestetik</span>
+                                    <span id="kinestheticVal">0%</span>
+                                </div>
+                                <div class="progress custom-progress">
+                                    <div id="kinestheticBar" class="progress-bar bg-gradient-danger" role="progressbar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yapay Zeka Koçu Tavsiyesi -->
+                <div class="card glass-card advice-card">
+                    <div class="card-header border-0 d-flex align-items-center bg-transparent">
+                        <div class="gemini-icon me-3">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h5 class="mb-0 fw-bold text-dark">Yapay Zeka Eğitim Koçu</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="geminiOutput" class="markdown-content">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="~/js/learnstyle.js" asp-append-version="true"></script>

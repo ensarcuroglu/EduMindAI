@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Verimli Mola | EduMind";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/productivebreak.css" asp-append-version="true" />
+}
+
+<div class="break-wrapper fade-in-up">
+
+    <!-- Header & Ambient Bar -->
+    <div class="break-header-group">
+        <div class="header-text">
+            <div class="pill-badge">
+                <i class="fa-solid fa-brain text-primary"></i>
+                Nöro-Dinlenme Modu
+            </div>
+            <h1>Molanı <span class="text-gradient">Verimli Kıl</span></h1>
+            <p class="break-subtitle">
+                Bilimsel mola teknikleriyle dopamin seviyeni dengele ve odağını geri kazan.
+            </p>
+        </div>
+
+        <!-- YENİ: Mini Ambiyans Oynatıcı -->
+        <div class="ambient-player glass-panel">
+            <button class="amb-btn active" data-sound="rain" title="Yağmur Sesi"><i class="fa-solid fa-cloud-rain"></i></button>
+            <button class="amb-btn" data-sound="cafe" title="Kafe Ortamı"><i class="fa-solid fa-mug-hot"></i></button>
+            <button class="amb-btn" data-sound="forest" title="Orman"><i class="fa-solid fa-tree"></i></button>
+            <button class="amb-btn" data-sound="waves" title="Dalgalar"><i class="fa-solid fa-water"></i></button>
+            <div class="volume-slider-wrapper">
+                <i class="fa-solid fa-volume-low"></i>
+                <input type="range" min="0" max="100" value="50" class="mini-range" id="masterVolume">
+            </div>
+        </div>
+    </div>
+
+    <!-- Aktivite Kartları Grid -->
+    <div class="activity-grid">
+
+        <!-- 1. Zihinsel Reset -->
+        <div class="p-card t-reset" onclick="openModal('modalReset')">
+            <span class="p-tag tag-relax">Relax</span>
+            <div class="p-icon"><i class="fa-solid fa-wind"></i></div>
+            <h3 class="p-title">Zihinsel Reset</h3>
+            <p class="p-desc">90 saniyede görsel ve işitsel rehberlikle zihnini boşalt.</p>
+            <div class="card-footer-btn">Başlat <i class="fa-solid fa-play"></i></div>
+        </div>
+
+        <!-- 2. Schulte Table (Gelişmiş) -->
+        <div class="p-card t-focus" onclick="openModal('modalSchulte')">
+            <span class="p-tag tag-focus">Odak</span>
+            <div class="p-icon"><i class="fa-solid fa-border-all"></i></div>
+            <h3 class="p-title">Schulte Grid</h3>
+            <p class="p-desc">Dikkat süreni ve çevresel görüşünü test eden profesyonel egzersiz.</p>
+            <div class="card-footer-btn">Oyna <i class="fa-solid fa-chess-board"></i></div>
+        </div>
+
+        <!-- 3. Zen Nefesi -->
+        <div class="p-card t-breath" onclick="openModal('modalBreath')">
+            <span class="p-tag tag-relax">Relax</span>
+            <div class="p-icon"><i class="fa-solid fa-lungs"></i></div>
+            <h3 class="p-title">4-7-8 Nefesi</h3>
+            <p class="p-desc">Stresi anında azaltan, Navy SEALs onaylı nefes tekniği.</p>
+            <div class="card-footer-btn">Nefes Al <i class="fa-solid fa-stopwatch"></i></div>
+        </div>
+
+        <!-- 4. Göz Yogası (Gelişmiş) -->
+        <div class="p-card t-eye" onclick="openModal('modalEye')">
+            <span class="p-tag tag-health">Sağlık</span>
+            <div class="p-icon"><i class="fa-regular fa-eye"></i></div>
+            <h3 class="p-title">Göz Yogası</h3>
+            <p class="p-desc">Ekran yorgunluğunu almak için rehberli göz hareketleri.</p>
+            <div class="card-footer-btn">Başlat <i class="fa-solid fa-arrows-to-eye"></i></div>
+        </div>
+
+        <!-- 5. Refleks Testi -->
+        <div class="p-card t-reflex" onclick="openModal('modalReflex')">
+            <span class="p-tag tag-energy">Enerji</span>
+            <div class="p-icon"><i class="fa-solid fa-bolt"></i></div>
+            <h3 class="p-title">Refleks Patlatıcı</h3>
+            <p class="p-desc">Uyuklamaya mı başladın? Tepki süreni ölçerek uyan.</p>
+            <div class="card-footer-btn">Test Et <i class="fa-solid fa-gamepad"></i></div>
+        </div>
+
+        <!-- 6. Endişe Kutusu (YENİ) -->
+        <div class="p-card t-worry" onclick="openModal('modalWorry')">
+            <span class="p-tag tag-mind">Terapi</span>
+            <div class="p-icon"><i class="fa-solid fa-trash-can"></i></div>
+            <h3 class="p-title">Endişe Kutusu</h3>
+            <p class="p-desc">Zihnini kurcalayan düşünceleri buraya yaz ve çalışmana odaklan.</p>
+            <div class="card-footer-btn">Zihni Boşalt <i class="fa-solid fa-pen-fancy"></i></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- --- GELİŞMİŞ MODALLAR --- -->
+<!-- 1. MODAL: ZİHİNSEL RESET -->
+<div id="modalReset" class="modal-overlay">
+    <div class="modal-box modal-lg glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalReset')"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content-center">
+            <h3 class="modal-title">Derinlemesine Reset</h3>
+            <div class="reset-anim-container">
+                <div class="blob-mesh"></div>
+                <div class="reset-instruction" id="resetText">Odaklanmaya Hazır mısın?</div>
+            </div>
+            <div class="modal-controls">
+                <button class="btn-primary-glass" onclick="startResetSequence()">Başlat (90s)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. MODAL: SCHULTE TABLE (PRO) -->
+<div id="modalSchulte" class="modal-overlay">
+    <div class="modal-box glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalSchulte')"><i class="fa-solid fa-xmark"></i></button>
+        <div class="game-header">
+            <h3>Schulte Grid</h3>
+            <div class="timer-badge" id="schulteTimer">00:00</div>
+        </div>
+
+        <div class="schulte-container">
+            <!-- Oyun Öncesi Ekran -->
+            <div id="schulteIntro" class="game-intro">
+                <p>1'den 25'e kadar sayıları sırasıyla en hızlı şekilde bul.</p>
+                <button class="btn-primary-glass" onclick="initSchulteGame()">Oyunu Başlat</button>
+            </div>
+
+            <!-- Oyun Izgarası -->
+            <div id="schulteGrid" class="schulte-grid d-none"></div>
+
+            <!-- Sonuç Ekranı -->
+            <div id="schulteResult" class="game-result d-none">
+                <div class="result-icon"><i class="fa-solid fa-trophy"></i></div>
+                <h4>Tebrikler!</h4>
+                <p>Süren: <span id="schulteFinalTime" class="fw-bold text-primary">00:00</span></p>
+                <button class="btn-secondary-glass" onclick="initSchulteGame()">Tekrar Oyna</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. MODAL: GÖZ YOGASI (GUIDED) -->
+<div id="modalEye" class="modal-overlay">
+    <div class="modal-box glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalEye')"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-content-center">
+            <h3>Göz Yogası</h3>
+            <p class="text-muted-glass mb-4">Başını hareket ettirmeden sadece gözlerinle noktayı takip et.</p>
+
+            <div class="eye-yoga-stage">
+                <div class="eye-guide-point" id="eyePoint"></div>
+                <div class="eye-instruction" id="eyeInstruction">Başlat'a Bas</div>
+                <!-- Yön Okları (Pasif) -->
+                <i class="fa-solid fa-chevron-up dir-arrow dir-up"></i>
+                <i class="fa-solid fa-chevron-down dir-arrow dir-down"></i>
+                <i class="fa-solid fa-chevron-left dir-arrow dir-left"></i>
+                <i class="fa-solid fa-chevron-right dir-arrow dir-right"></i>
+            </div>
+
+            <button class="btn-primary-glass mt-4" id="btnStartEye" onclick="startEyeYogaRoutine()">Başlat</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. MODAL: ENDİŞE KUTUSU (YENİ) -->
+<div id="modalWorry" class="modal-overlay">
+    <div class="modal-box glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalWorry')"><i class="fa-solid fa-xmark"></i></button>
+        <h3>Endişe Kutusu</h3>
+        <p class="text-muted-glass">Seni meşgul eden düşünceleri buraya yaz. Biz onları saklayacağız, sen dersine odaklan.</p>
+
+        <div class="worry-input-area">
+            <textarea id="worryInput" placeholder="Aklında ne var? (Örn: Yarınki sunum stresi...)" rows="3"></textarea>
+            <button class="btn-shred" onclick="shredWorry()"><i class="fa-solid fa-paper-plane"></i> Zihinden At</button>
+        </div>
+
+        <div class="shredder-animation-area" id="shredderArea">
+            <!-- Animasyon JS ile eklenecek -->
+        </div>
+    </div>
+</div>
+
+<!-- 5. MODAL: REFLEKS -->
+<div id="modalReflex" class="modal-overlay">
+    <div class="modal-box glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalReflex')"><i class="fa-solid fa-xmark"></i></button>
+        <h3 class="mb-3">Refleks Testi</h3>
+        <div class="reflex-container" id="reflexBox" onmousedown="handleReflexClick()">
+            <div class="reflex-icon"><i class="fa-solid fa-fingerprint"></i></div>
+            <h2 id="reflexMsg">Başlamak için tıkla</h2>
+        </div>
+        <p class="mt-3 text-sm" id="reflexSubMsg">Kırmızıda bekle, Yeşilde bas!</p>
+    </div>
+</div>
+
+<!-- 6. MODAL: NEFES -->
+<div id="modalBreath" class="modal-overlay">
+    <div class="modal-box glass-modal">
+        <button class="btn-close-modal" onclick="closeModal('modalBreath')"><i class="fa-solid fa-xmark"></i></button>
+        <h3>4-7-8 Nefes Tekniği</h3>
+
+        <div class="breath-visualizer">
+            <div class="breath-ring" id="breathRing"></div>
+            <div class="breath-label" id="breathLabel">Hazır</div>
+        </div>
+
+        <div class="breath-controls">
+            <button class="btn-primary-glass" id="btnBreathStart" onclick="toggleBreathing()">Başlat</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="~/js/productivebreak.js" asp-append-version="true"></script>
+}

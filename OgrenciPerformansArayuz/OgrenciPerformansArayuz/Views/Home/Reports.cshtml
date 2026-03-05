@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Gelişim Raporlarım";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/reports.css" asp-append-version="true" />
+    <style>
+        /* Layout Override */
+        .main-wrapper {
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .main-content {
+            background: #F8FAFC;
+        }
+    </style>
+}
+
+<div class="main-wrapper">
+    <div class="wide-container">
+
+        <div class="reports-header animate-down">
+            <div>
+                <h1 class="page-title">Gelişim <span class="highlight">Analizi</span></h1>
+                <p class="page-subtitle">Zaman içindeki performans değişimini ve geçmiş analiz detaylarını incele.</p>
+            </div>
+            <div class="header-actions">
+                <div class="date-filter">
+                    <i class="fa-regular fa-calendar"></i>
+                    <select id="timeRange">
+                        <option value="1">Son 1 Ay</option>
+                        <option value="3" selected>Son 3 Ay</option>
+                        <option value="6">Son 6 Ay</option>
+                        <option value="12">Tüm Zamanlar</option>
+                    </select>
+                </div>
+                <button class="btn-export">
+                    <i class="fa-solid fa-download"></i> PDF İndir
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid animate-up">
+
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Toplam Analiz</span>
+                    <h3 class="stat-value">12</h3>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Ortalama Skor</span>
+                    <h3 class="stat-value">76.4</h3>
+                    <span class="stat-trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +4.2%</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-trophy"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">En Yüksek</span>
+                    <h3 class="stat-value">92</h3>
+                    <small class="stat-date">14 Kasım 2025</small>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange"><i class="fa-regular fa-clock"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Ort. Çalışma</span>
+                    <h3 class="stat-value">3.5s</h3>
+                    <span class="stat-trend negative"><i class="fa-solid fa-arrow-trend-down"></i> -0.5s</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="charts-section animate-up delay-1">
+
+            <div class="chart-card main-chart">
+                <div class="card-header">
+                    <h3>Performans Trendi</h3>
+                    <div class="legend">
+                        <span class="dot real"></span> Gerçekleşen
+                        <span class="dot potential"></span> Potansiyel
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h4>AI İçgörüsü</h4>
+                        <small>Haftalık Özet</small>
+                    </div>
+                </div>
+                <div class="insight-body">
+                    <p>
+                        "Son 3 analizde <strong>istikrarlı bir artış</strong> gözlemliyorum. Özellikle uyku düzenindeki iyileştirme (ort. 6.2s -> 7.1s) doğrudan skoruna yansımış."
+                    </p>
+                    <div class="highlight-box">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>Öneri: Hafta sonu çalışma saatini korursan önümüzdeki ay 85 puan barajını aşabilirsin.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section animate-up delay-2">
+            <h3 class="section-title">Analiz Geçmişi</h3>
+
+            <div class="table-container">
+                <table class="glass-table">
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Skor</th>
+                            <th>Durum</th>
+                            <th>Odak Noktası</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/reports.js" asp-append-version="true"></script>
+}

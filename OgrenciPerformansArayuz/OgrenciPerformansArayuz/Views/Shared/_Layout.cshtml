@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EduMind AI</title>
+
+    <!-- Fontlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- İkon Seti -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Özel Layout CSS -->
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <!-- Yüzen (Floating) Navbar Wrapper -->
+    <div class="nav-wrapper">
+        <nav class="glass-navbar">
+            <div class="nav-container">
+
+                <!-- Logo Alanı -->
+                <a asp-controller="Home" asp-action="Index" class="nav-brand">
+                    <div class="brand-logo-anim">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <span class="brand-name">EduMind<span class="dot">.</span>AI</span>
+                </a>
+
+                <!-- Orta Menü (Masaüstü) -->
+                <div class="nav-center">
+                    <a asp-controller="Home" asp-action="Index"
+                       class="nav-item-modern @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                        <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+                        <span class="nav-text">Merkez</span>
+                    </a>
+
+                    <!-- Akıllı Araçlar Dropdown -->
+                    <div class="nav-dropdown-wrapper" id="smartToolsDropdown">
+                        <button class="nav-item-modern nav-dropdown-trigger @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Schedule" ? "active" : "")">
+                            <span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span>
+                            <span class="nav-text">Araçlar</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </button>
+
+                        <div class="nav-drop-menu glass-dropdown">
+                            <div class="drop-menu-header">Verimlilik Araçları</div>
+
+                            <!-- Ders Programı Oluşturucu -->
+                            <a asp-controller="Home" asp-action="GenerateSchedule" class="nav-drop-item">
+                                <div class="item-icon color-indigo"><i class="fa-solid fa-calendar-days"></i></div>
+                                <div class="item-content">
+                                    <span class="item-title">Ders Programı</span>
+                                    <span class="item-desc">Genetik algoritma ile planla</span>
+                                </div>
+                            </a>
+
+                            <!-- AI Mentor -->
+                            <a asp-controller="Home" asp-action="AiMentor" class="nav-drop-item">
+                                <div class="item-icon color-green"><i class="fa-solid fa-robot"></i></div>
+                                <div class="item-content">
+                                    <span class="item-title">AI Mentor</span>
+                                    <span class="item-desc">7/24 Öğrenci asistanı</span>
+                                </div>
+                            </a>
+
+                            <!-- Raporlar -->
+                            <a asp-controller="Home" asp-action="Reports" class="nav-drop-item">
+                                <div class="item-icon color-pink"><i class="fa-solid fa-chart-pie"></i></div>
+                                <div class="item-content">
+                                    <span class="item-title">Analizler</span>
+                                    <span class="item-desc">Detaylı gelişim raporu</span>
+                                </div>
+                            </a>
+
+                            <!-- DeskAI Analiz -->
+                            <a asp-controller="Home" asp-action="DeskAnalyze" class="nav-drop-item">
+                                <div class="item-icon color-indigo"><i class="fa-solid fa-desktop"></i></div>
+                                <div class="item-content">
+                                    <span class="item-title">DeskAI</span>
+                                    <span class="item-desc">Çalışma ortamı analizi</span>
+                                </div>
+                            </a>
+
+                            <!-- Verimli Mola  -->
+                            <a asp-controller="Home" asp-action="ProductiveBreak" class="nav-drop-item">
+                                <div class="item-icon color-orange" style="color: #f97316;">
+                                    <i class="fa-solid fa-mug-hot"></i>
+                                </div>
+                                <div class="item-content">
+                                    <span class="item-title">Verimli Mola</span>
+                                    <span class="item-desc">Zihnini yenile ve odaklan</span>
+                                </div>
+                            </a>
+
+                            <!-- Öğrenme Stili Analizi -->
+                            <a asp-controller="Home" asp-action="LearnStyle" class="nav-drop-item">
+                                <div class="item-icon" style="color: #8b5cf6;">
+                                    <!-- Mor renk -->
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div class="item-content">
+                                    <span class="item-title">Öğrenme Stili</span>
+                                    <span class="item-desc">Sana uygun metodu keşfet</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a asp-controller="Home" asp-action="Goals"
+                       class="nav-item-modern @(ViewContext.RouteData.Values["Action"]?.ToString() == "Goals" ? "active" : "")">
+                        <span class="nav-icon"><i class="fa-solid fa-bullseye"></i></span>
+                        <span class="nav-text">Hedefler</span>
+                    </a>
+
+                    <!-- YENİ EKLENEN: Performans Butonu -->
+                    <a asp-controller="Home" asp-action="PerformanceAnalytics"
+                       class="nav-item-modern @(ViewContext.RouteData.Values["Action"]?.ToString() == "PerformanceAnalytics" ? "active" : "")">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        <span class="nav-text">Performans</span>
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Product"
+                       class="nav-item-modern @(ViewContext.RouteData.Values["Action"]?.ToString() == "Product" ? "active" : "")">
+                        <span class="nav-icon"><i class="fa-solid fa-cube"></i></span>
+                        <span class="nav-text">Ürün</span>
+                    </a>
+
+                </div>
+
+                <!-- Sağ Aksiyonlar -->
+                <div class="nav-right">
+
+                    <!-- Streak (Seri) Rozeti -->
+                    <div class="streak-pill" title="12 Günlük Çalışma Serisi">
+                        <i class="fa-solid fa-fire-flame-curved"></i> <span>12</span>
+                    </div>
+
+                    <!-- Pomodoro Butonu (İkon Stil) -->
+                    <a asp-controller="Home" asp-action="Pomodoro" class="btn-pomodoro" title="Odak Modu">
+                        <i class="fa-solid fa-stopwatch"></i>
+                        <span class="btn-text">Odak</span>
+                    </a>
+
+                    <!-- Bildirimler -->
+                    <button class="icon-btn-modern notification-trigger">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="indicator"></span>
+                    </button>
+
+                    <div class="separator-vertical"></div>
+
+                    <!-- Kullanıcı Profili -->
+                    <div class="user-profile-wrapper">
+                        <div class="profile-trigger" id="profileTrigger">
+                            <div class="profile-avatar">
+                                <img src="https://ui-avatars.com/api/?name=Ogrenci&background=4F46E5&color=fff&bold=true" alt="Profile">
+                            </div>
+                        </div>
+
+                        <div class="profile-dropdown glass-dropdown" id="profileDropdown">
+                            <div class="dropdown-header">
+                                <div class="u-info">
+                                    <span class="u-name">Ensar Curoğlu</span>
+                                    <span class="u-role">Bilişim Sistemleri Müh.</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-links">
+                                <a asp-controller="Home" asp-action="Profile" class="dd-item">
+                                    <i class="fa-regular fa-user"></i> Profilim
+                                </a>
+                                <a asp-controller="Home" asp-action="Settings" class="dd-item">
+                                    <i class="fa-solid fa-sliders"></i> Ayarlar
+                                </a>
+                                <a asp-controller="Home" asp-action="Abonelik" class="dd-item">
+                                    <i class="fa-regular fa-credit-card"></i> Abonelik
+                                    <span class="badge-pro">PRO</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-footer">
+                                <a asp-controller="Auth" asp-action="Logout" class="dd-item text-danger">
+                                    <i class="fa-solid fa-power-off"></i> Çıkış Yap
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobil Menü Tetikleyici -->
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <div class="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobil Menü Paneli -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" class="m-link active"><i class="fa-solid fa-house"></i> Merkez</a>
+            <a asp-controller="Schedule" asp-action="GenerateSchedule" class="m-link">
+                <i class="fa-solid fa-calendar-days"></i> Ders Programı
+            </a>
+
+            <!-- YENİ EKLENEN: Mobil Performans Linki -->
+            <a asp-controller="Home" asp-action="PerformanceAnalytics" class="m-link">
+                <i class="fa-solid fa-chart-line"></i> Performans
+            </a>
+
+            <a href="#" class="m-link"><i class="fa-solid fa-robot"></i> AI Mentor</a>
+            <a href="#" class="m-link"><i class="fa-solid fa-chart-pie"></i> Raporlarım</a>
+            <a href="#" class="m-link"><i class="fa-solid fa-bullseye"></i> Hedefler</a>
+            <div class="m-divider"></div>
+            <a href="#" class="m-link"><i class="fa-solid fa-user"></i> Profilim</a>
+            <a href="#" class="m-link logout"><i class="fa-solid fa-right-from-bracket"></i> Çıkış</a>
+        </div>
+    </div>
+
+    <!-- Ana İçerik -->
+    <main role="main" class="main-content">
+        @RenderBody()
+    </main>
+
+
+    
+    <!-- Modern Footer -->
+    <footer class="innovative-footer">
+        <!-- Dalga Efekti -->
+        <div class="footer-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            </svg>
+        </div>
+
+        <div class="footer-content-wrapper">
+            <div class="footer-grid-modern">
+
+                <!-- Marka -->
+                <div class="footer-brand-section">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>EduMind<span class="dot">.</span>AI</span>
+                    </div>
+                    <p class="brand-slogan">
+                        Yapay zeka ile öğrenme potansiyelini maksimuma çıkar. Gelecek senin zihninde.
+                    </p>
+                    <div class="social-links-modern">
+                        <a href="#" class="sc-link" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="sc-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="sc-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Linkler -->
+                <div class="footer-links-col">
+                    <h4>Keşfet</h4>
+                    <ul class="animated-links">
+                        <li><a href="#">Nasıl Çalışır?</a></li>
+                        <li><a href="#">Özellikler</a></li>
+                        <li><a href="#">Premium Planlar</a></li>
+                        <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                    </ul>
+                </div>
+
+                <!-- Bülten -->
+                <div class="footer-newsletter-col">
+                    <h4>Haberdar Ol</h4>
+                    <p>Yeni özellikler ve çalışma ipuçları için bültenimize katıl.</p>
+                    <div class="newsletter-input-group">
+                        <input type="email" placeholder="E-posta adresin..." id="newsletterEmail">
+                        <button class="btn-send" id="newsletterBtn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- İnteraktif Kart (Tilt) -->
+                <div class="footer-inspiration-col">
+                    <div class="glass-tilt-card" id="tiltCard">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-label">Günün İlhamı</span>
+                            <p id="footerQuote" class="quote-text-modern">"Yükleniyor..."</p>
+                        </div>
+                        <div class="card-shine"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom-modern">
+                <p>&copy; @DateTime.Now.Year EduMind AI. Tüm hakları saklıdır. <a href="#">Gizlilik</a> • <a href="#">Kullanım Şartları</a></p>
+            </div>
+        </div>
+    </footer> 
+
+    <!-- Script Dosyaları -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/layout.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

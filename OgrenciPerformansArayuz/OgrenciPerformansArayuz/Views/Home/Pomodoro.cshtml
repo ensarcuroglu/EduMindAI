@@ -1,0 +1,485 @@
+﻿@{
+    ViewData["Title"] = "Focus Zone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pomodoro.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+}
+
+<!-- Odaklanma Overlay -->
+<div id="focusOverlay" class="focus-overlay"></div>
+
+<!-- Mindfulness Overlay -->
+<div id="mindfulnessOverlay" class="mindfulness-overlay hidden">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="mindfulness-container">
+        <div class="m-header">
+            <div class="m-title">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>Zihin Yenileme Modu</span>
+            </div>
+            <button class="btn-close-mindfulness" onclick="closeMindfulness()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="breathing-stage">
+            <div class="breath-modes">
+                <button class="mode-pill active" onclick="changeBreathMode('box')" data-mode="box">
+                    <i class="fa-solid fa-cube"></i> Denge (Kutu)
+                </button>
+                <button class="mode-pill" onclick="changeBreathMode('relax')" data-mode="relax">
+                    <i class="fa-solid fa-moon"></i> Derin (4-7-8)
+                </button>
+            </div>
+
+            <div class="guide-circle-wrapper">
+                <div class="guide-circle-outer"></div>
+                <div class="guide-circle-inner" id="breathingCircle"></div>
+
+                <div class="breath-instruction">
+                    <span id="breathText">Nefes Al</span>
+                    <div class="breath-timer" id="breathTimer">4</div>
+                </div>
+            </div>
+            <p class="breath-subtext" id="breathSubtext">Kutu Tekniği: Stresi azaltmak için ritmi takip et.</p>
+        </div>
+
+        <div class="wisdom-card">
+            <div class="wisdom-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <p id="mindfulnessQuote" class="wisdom-text">Yükleniyor...</p>
+        </div>
+
+        <button class="btn-finish-mindfulness" onclick="closeMindfulness()">
+            <span class="btn-text">Daha İyi Hissediyorum</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- ANA WRAPPER -->
+<div class="pomodoro-wrapper">
+
+    <!-- POSTÜR BİLDİRİM KUTUSU -->
+    <div id="postureAlert" class="posture-toast hidden">
+        <div class="toast-icon">
+            <i class="fa-solid fa-person-circle-exclamation"></i>
+        </div>
+        <div class="toast-content">
+            <span class="toast-title">Duruşunu Düzelt!</span>
+            <span class="toast-message" id="postureAlertText">Kambur duruyorsun.</span>
+        </div>
+    </div>
+
+    <!-- Arka Plan -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- YATAY DÜZEN (Horizontal Grid) -->
+    <div class="dashboard-grid animate-up">
+
+        <!-- SOL PANEL: İstatistik & Araçlar -->
+        <div class="side-panel left">
+
+            <!-- --- AI VISION CARD (COMPACT & SOFT) --- -->
+            <div class="glass-card ai-vision-card">
+                <div class="ai-header-compact">
+                    <div class="ai-brand">
+                        <i class="fa-solid fa-robot text-primary-soft"></i>
+                        <span class="ai-title">AI Asistan</span>
+                    </div>
+                    <label class="toggle-switch scale-75" title="Kamerayı Aç/Kapat">
+                        <input type="checkbox" id="cameraToggle" onchange="toggleCamera()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="ai-feed-container">
+                    <!-- Görüntü -->
+                    <img id="processedFeed" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="AI Feed">
+
+                    <!-- Placeholder -->
+                    <div class="ai-placeholder">
+                        <i class="fa-solid fa-video-slash"></i>
+                        <span>Hazır</span>
+                    </div>
+
+                    <!-- Durum -->
+                    <div id="aiConnectionStatus" class="status-pill offline">
+                        <span class="dot"></span> <span id="statusText">Pasif</span>
+                    </div>
+
+                    <!-- Gizli -->
+                    <video id="webcamVideo" autoplay playsinline style="display: none;"></video>
+                    <canvas id="captureCanvas" style="display: none;"></canvas>
+                </div>
+
+                <div class="ai-footer-compact">
+                    <div class="active-modes">
+                        <i class="fa-solid fa-hand-sparkles" title="Jest Kontrol"></i>
+                        <i class="fa-solid fa-user-doctor" title="Postür Analizi"></i>
+                    </div>
+                    <span id="gestureHint" class="hint-text">Komut Bekleniyor</span>
+                </div>
+            </div>
+            <!-- --- AI VISION CARD BİTİŞ --- -->
+
+            <div class="glass-card session-card-modern">
+                <div class="session-ring-wrapper">
+                    <svg class="session-ring" width="60" height="60">
+                        <circle class="s-ring-bg" cx="30" cy="30" r="26"></circle>
+                        <circle class="s-ring-fill" cx="30" cy="30" r="26" id="sessionRingFill"></circle>
+                    </svg>
+                    <div class="session-text-centered">
+                        <span id="sessionCount">0</span>
+                        <span class="session-target">/4</span>
+                    </div>
+                </div>
+                <div class="session-info-text">
+                    <span class="s-label">Hedef</span>
+                    <span class="s-status">Yolda 🚀</span>
+                </div>
+            </div>
+
+            <button class="glass-card mindfulness-btn" onclick="openMindfulness()">
+                <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+                <div class="card-info">
+                    <span class="label">Zihin Toplama</span>
+                    <span class="sub-label">Modu Başlat</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow"></i>
+            </button>
+        </div>
+
+        <!-- ORTA SAHNE: Timer -->
+        <div class="center-stage">
+            <div class="timer-container">
+
+                <!-- Mod Seçici -->
+                <div class="mode-toggles">
+                    <button class="mode-chip active" data-mode="focus" data-time="25">Focus</button>
+                    <button class="mode-chip" data-mode="short" data-time="5">Short Break</button>
+                    <button class="mode-chip" data-mode="long" data-time="15">Long Break</button>
+                </div>
+
+                <!-- Görsel Sayaç -->
+                <div class="timer-visual-wrapper">
+                    <div class="glow-ring"></div>
+                    <svg class="progress-ring" width="380" height="380">
+                        <circle class="ring-bg" stroke-width="12" fill="transparent" r="170" cx="190" cy="190" />
+                        <circle class="ring-fill" stroke-width="12" fill="transparent" r="170" cx="190" cy="190" />
+                    </svg>
+
+                    <div class="timer-inner-content">
+                        <div class="timer-mode-label" id="modeLabel">ODAKLAN</div>
+                        <div class="time-display" id="timeDisplay">25:00</div>
+                        <div class="task-selector" onclick="openTaskManager()" title="Görev Listesini Aç">
+                            <div class="active-task-wrapper">
+                                <span id="activeTaskDisplay" class="active-task-text">Bir görev seç...</span>
+                                <span class="edit-badge"><i class="fa-solid fa-list-check"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kontroller -->
+                <div class="main-actions">
+                    <button class="action-btn secondary" id="resetBtn" title="Sıfırla">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+
+                    <button class="action-btn primary" id="toggleBtn">
+                        <span class="btn-content">
+                            <i class="fa-solid fa-play" id="toggleIcon"></i>
+                            <span id="toggleText">BAŞLAT</span>
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SAĞ PANEL: Sesler & Ayarlar -->
+        <div class="side-panel right">
+
+            <button class="icon-btn-floating" onclick="openSettings()" title="Ayarlar">
+                <i class="fa-solid fa-sliders"></i>
+            </button>
+
+            <div class="glass-card ambient-vertical">
+                <span class="panel-title">Atmosfer</span>
+                <div class="sound-stack">
+                    <button class="sound-btn" data-sound="rain" title="Yağmur"><i class="fa-solid fa-cloud-rain"></i></button>
+                    <button class="sound-btn" data-sound="cafe" title="Kafe"><i class="fa-solid fa-mug-hot"></i></button>
+                    <button class="sound-btn" data-sound="fire" title="Ateş"><i class="fa-solid fa-fire"></i></button>
+                    <button class="sound-btn active" data-sound="none" title="Sessiz"><i class="fa-solid fa-volume-xmark"></i></button>
+                </div>
+
+                <audio id="audio-rain" loop src="@Url.Content("~/audio/rain.mp3")"></audio>
+                <audio id="audio-cafe" loop src="@Url.Content("~/audio/cafe.mp3")"></audio>
+                <audio id="audio-fire" loop src="@Url.Content("~/audio/fire.mp3")"></audio>
+            </div>
+
+            <button class="spotify-premium-btn" onclick="openSpotifyModal()">
+                <div class="sp-icon-layer">
+                    <i class="fa-brands fa-spotify"></i>
+                </div>
+                <div class="sp-text-layer">
+                    <span class="sp-title">Spotify</span>
+                    <span class="sp-sub">Focus Flow</span>
+                </div>
+                <div class="sp-glow-effect"></div>
+            </button>
+
+            <button class="youtube-premium-btn" onclick="openYoutubeModal()">
+                <div class="yt-icon-layer">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+                <div class="yt-text-layer">
+                    <span class="yt-title">YouTube</span>
+                    <span class="yt-sub">Video & Audio</span>
+                </div>
+                <div class="yt-glow-effect"></div>
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="settings-modal hidden" id="settingsModal">
+    <div class="settings-glass-card">
+        <div class="modal-header">
+            <div class="header-title">
+                <i class="fa-solid fa-sliders"></i> <h3>Tercihler</h3>
+            </div>
+            <button class="btn-close-modal" onclick="closeSettings()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="setting-section">
+                <h4 class="section-title">ZAMANLAYICI (DK)</h4>
+                <div class="input-group">
+                    <label>Odaklanma</label>
+                    <div class="stepper-input">
+                        <button onclick="stepInput('customFocus', -1)">-</button>
+                        <input type="number" id="customFocus" value="25" readonly>
+                        <button onclick="stepInput('customFocus', 1)">+</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Kısa Mola</label>
+                    <div class="stepper-input">
+                        <button onclick="stepInput('customShort', -1)">-</button>
+                        <input type="number" id="customShort" value="5" readonly>
+                        <button onclick="stepInput('customShort', 1)">+</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Uzun Mola</label>
+                    <div class="stepper-input">
+                        <button onclick="stepInput('customLong', -5)">-</button>
+                        <input type="number" id="customLong" value="15" readonly>
+                        <button onclick="stepInput('customLong', 5)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- YENİ EKLENEN: JEST AYARLARI BÖLÜMÜ --- -->
+            <div class="setting-section">
+                <h4 class="section-title">JEST KONTROLÜ</h4>
+                <div class="setting-row" style="display: block;">
+                    <div style="margin-bottom: 10px; font-size: 0.9rem; color: #ccc;">Hareket Modu Seç:</div>
+                    <div style="display: flex; gap: 10px;">
+                        <button id="btnGestureSecure" class="mode-pill active" style="flex: 1; justify-content: center;" onclick="selectGestureMode('secure')">
+                            🛡️ Güvenli (Shaka/Rock)
+                        </button>
+                        <button id="btnGestureEasy" class="mode-pill" style="flex: 1; justify-content: center;" onclick="selectGestureMode('easy')">
+                            👌 Kolay (El/Yumruk)
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- --- BİTİŞ --- -->
+
+            <div class="setting-section">
+                <h4 class="section-title">SES & BİLDİRİM</h4>
+                <div class="setting-row">
+                    <div class="setting-info"><span class="setting-label">Ses Seviyesi</span></div>
+                    <input type="range" class="volume-slider" id="masterVolume" min="0" max="100" value="80">
+                </div>
+                <div class="setting-row">
+                    <div class="setting-info"><span class="setting-label">Otomatik Başlat</span></div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoStartBreaks">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-save-settings" onclick="saveSettings()">
+                <span>Kaydet</span> <i class="fa-solid fa-check"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Task Modal -->
+<div class="task-modal hidden" id="taskModal">
+    <div class="task-glass-card">
+        <div class="modal-header">
+            <div class="header-title">
+                <i class="fa-solid fa-list-check"></i> <h3>Görevlerim</h3>
+            </div>
+            <button class="btn-close-modal" onclick="closeTaskManager()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="task-body">
+            <div class="add-task-wrapper">
+                <input type="text" id="newTaskInput" placeholder="Bugün ne başaracaksın?" onkeypress="handleTaskInput(event)">
+                <button class="btn-add-task" onclick="addNewTask()">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="task-list-container">
+                <ul id="todoList" class="custom-todo-list">
+                </ul>
+
+                <div id="emptyState" class="empty-state hidden">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <p>Henüz bir görev yok.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Spotify Modal -->
+<div class="spotify-modal hidden" id="spotifyModal">
+    <div class="modal-backdrop" onclick="closeSpotifyModal()"></div>
+
+    <div class="spotify-glass-card animate-pop-in">
+        <div class="s-header">
+            <div class="s-brand">
+                <div class="s-icon-glow">
+                    <i class="fa-brands fa-spotify"></i>
+                </div>
+                <div class="s-text">
+                    <h3>Focus Flow</h3>
+                    <span>Müziğini Seç & Odaklan</span>
+                </div>
+            </div>
+            <button class="btn-s-close" onclick="closeSpotifyModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="s-body">
+            <div class="s-controls-wrapper" id="spotifyInputGroup">
+
+                <div class="s-quick-picks">
+                    <button class="s-chip" onclick="loadQuickPick('lofi')">☕ Lo-Fi Girl</button>
+                    <button class="s-chip" onclick="loadQuickPick('piano')">🎹 Peaceful Piano</button>
+                    <button class="s-chip" onclick="loadQuickPick('white')">🌧️ Rain Sounds</button>
+                </div>
+
+                <div class="s-input-container">
+                    <i class="fa-solid fa-link input-icon"></i>
+                    <input type="text" id="spotifyUrlInput" placeholder="Veya Spotify linki yapıştır...">
+                    <button class="btn-s-load" onclick="updateSpotifyEmbed()">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="s-player-container">
+                <div class="player-glow"></div>
+                <iframe id="spotifyFrame"
+                        src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator&theme=0"
+                        width="100%"
+                        height="152"
+                        frameBorder="0"
+                        allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                </iframe>
+            </div>
+
+            <div class="s-footer-tip">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Odak modu başladığında liste kilitlenir.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- YoutubeMusic Modal -->
+<div class="youtube-modal hidden" id="youtubeModal">
+    <div class="modal-backdrop" onclick="closeYoutubeModal()"></div>
+
+    <div class="youtube-glass-card animate-pop-in">
+        <div class="yt-header">
+            <div class="yt-brand">
+                <div class="yt-icon-glow">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+                <div class="yt-text">
+                    <h3>Tube Focus</h3>
+                    <span>İzleme Listeni Oluştur</span>
+                </div>
+            </div>
+            <button class="btn-yt-close" onclick="closeYoutubeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="yt-body">
+            <div class="yt-controls-wrapper" id="youtubeInputGroup">
+
+                <div class="yt-quick-picks">
+                    <button class="yt-chip" onclick="loadYoutubeQuickPick('lofi')">☕ Lofi Girl</button>
+                    <button class="yt-chip" onclick="loadYoutubeQuickPick('jazz')">🎷 Cafe Jazz</button>
+                    <button class="yt-chip" onclick="loadYoutubeQuickPick('nature')">🌲 Forest</button>
+                </div>
+
+                <div class="yt-input-container">
+                    <i class="fa-solid fa-link input-icon"></i>
+                    <input type="text" id="youtubeUrlInput" placeholder="YouTube video linki yapıştır...">
+                    <button class="btn-yt-load" onclick="updateYoutubeEmbed()">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="yt-player-container">
+                <iframe id="youtubeFrame"
+                        width="100%"
+                        height="200"
+                        src="https://www.youtube.com/embed/jfKfPfyJRdk?si=Df_s3_s4_s5"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="yt-footer-tip">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Odak modunda video değiştirilemez.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pomodoro.js" asp-append-version="true"></script>
+}

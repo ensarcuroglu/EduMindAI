@@ -1,0 +1,246 @@
+﻿@{
+    ViewData["Title"] = "Sosyal Kampüs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="social-wrapper fade-in-up">
+    <!-- Üst Bar: Gamification & Durum -->
+    <!-- 'sticky-top-custom-nav' layout.css'teki nav yüksekliğine göre hizalanır -->
+    <div class="container-fluid py-3 mb-3 sticky-top-custom-nav glass-panel z-index-10">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <h4 class="mb-0 fw-bold gradient-text">Kampüs Akışı</h4>
+                <span class="badge bg-soft-info pulse-animation d-none d-sm-inline-flex align-items-center">
+                    <i class="bi bi-people-fill me-1"></i> <span id="onlineCount">124</span> Online
+                </span>
+            </div>
+
+            <!-- XP Progress Bar (Mobil uyumlu hale getirildi) -->
+            <div class="d-flex align-items-center gap-3 xp-container">
+                <div class="text-end d-none d-md-block">
+                    <small class="text-muted d-block" style="font-size: 0.75rem;">Seviye 14 - Master Student</small>
+                    <small class="fw-bold text-primary" id="xpText">2,450 / 3,000 XP</small>
+                </div>
+                <div class="progress rounded-pill shadow-sm d-none d-sm-flex" style="width: 150px; height: 8px;">
+                    <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="daily-streak" title="12 Günlük Seri">
+                    <i class="bi bi-fire text-orange"></i>
+                    <span class="fw-bold ms-1">12 Gün</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pb-5">
+        <div class="row g-4">
+
+            <!-- SOL PANEL: Gelişmiş Profil & İstatistikler -->
+            <!-- Mobilde gizlenir (d-none d-lg-block) -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="social-card profile-card text-center p-4 mb-4 position-relative overflow-hidden">
+                    <div class="bg-pattern-top"></div>
+                    <div class="avatar-container mb-3 position-relative">
+                        <img src="https://ui-avatars.com/api/?name=Ensar+Curoglu&background=6366f1&color=fff&size=128" alt="User" class="profile-img shadow-lg">
+                        <span class="status-indicator online" title="Online"></span>
+                        <div class="rank-badge shadow-sm" title="Global Sıralama: #4">#4</div>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-1">Ensar Sami Curoğlu</h5>
+                    <p class="text-muted small mb-3">Bilişim Sistemleri Müh. - 4. Sınıf</p>
+
+                    <!-- Proje Raporundaki Arketipler -->
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                        <span class="badge-archetype archetype-grinder" data-bs-toggle="tooltip" title="Dayanıklı ve uzun çalışma kapasitesi">
+                            🚀 Power Grinder
+                        </span>
+                        <span class="badge-archetype archetype-owl" data-bs-toggle="tooltip" title="16:00 - 02:00 arası aktif">
+                            🌙 Night Owl
+                        </span>
+                    </div>
+
+                    <div class="stats-grid mb-4">
+                        <div class="stat-box">
+                            <span class="stat-value text-primary">89.6</span>
+                            <span class="stat-label">Tahmin</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value text-success">92%</span>
+                            <span class="stat-label">Odak</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value text-warning">Wait</span>
+                            <span class="stat-label">Uyku</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a href="/Profile" class="btn btn-sm btn-soft-primary rounded-pill fw-semibold">Profili Düzenle</a>
+                    </div>
+                </div>
+
+                <!-- AI Geri Bildirim Widget (Dinamik) -->
+                <div class="social-card p-4 mb-4 ai-widget-card border-0">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="icon-box bg-white text-primary rounded-circle shadow-sm">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <h6 class="mb-0 fw-bold text-white">SmartAdvisor</h6>
+                    </div>
+                    <p id="aiAdviceText" class="small text-white-50 mb-3" style="line-height: 1.5;">
+                        Veriler analiz ediliyor...
+                    </p>
+                    <button onclick="refreshAdvice()" class="btn btn-sm btn-white w-100 rounded-pill shadow-sm">
+                        <i class="bi bi-arrow-clockwise me-1"></i> Tavsiyeyi Yenile
+                    </button>
+                </div>
+            </div>
+
+            <!-- ORTA PANEL: Zengin İçerik Akışı -->
+            <div class="col-lg-6 col-md-12">
+                <!-- Post Oluşturma -->
+                <div class="social-card p-4 mb-4 create-post-card position-relative z-index-1">
+                    <div class="d-flex gap-3">
+                        <img src="https://ui-avatars.com/api/?name=Ensar+Curoglu&background=6366f1&color=fff" class="avatar-sm rounded-circle shadow-sm">
+                        <div class="w-100">
+                            <textarea id="postContent" class="form-control border-0 bg-light-input mb-2" rows="2" placeholder="Bugün hangi moddasın? (Örn: #KeşişModu)"></textarea>
+
+                            <!-- Özel Etiketler -->
+                            <div class="d-flex gap-2 mb-3 overflow-auto pb-1 tags-scroll scroll-hide">
+                                <span class="badge bg-soft-secondary cursor-pointer tag-select" onclick="addTag('#KeşişModu')">🧘‍♂️ #KeşişModu</span>
+                                <span class="badge bg-soft-secondary cursor-pointer tag-select" onclick="addTag('#ZombiModu')">🧟‍♂️ #ZombiModu</span>
+                                <span class="badge bg-soft-secondary cursor-pointer tag-select" onclick="addTag('#Pazarlık')">🤝 #Pazarlık</span>
+                                <span class="badge bg-soft-secondary cursor-pointer tag-select" onclick="addTag('#Pomodoro')">🍅 #Pomodoro</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center border-top pt-3 border-light">
+                                <div class="actions d-flex gap-2">
+                                    <button class="btn btn-icon" title="Masa Fotoğrafı Ekle (YOLOv8 Analizi için)"><i class="bi bi-camera"></i></button>
+                                    <button class="btn btn-icon" title="Grafik Ekle"><i class="bi bi-bar-chart-line"></i></button>
+                                </div>
+                                <button onclick="sharePost()" class="btn btn-primary rounded-pill px-4 shadow-hover fw-bold">
+                                    Paylaş <i class="bi bi-send-fill ms-1 small"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Akıllı Filtreler -->
+                <div class="filter-bar d-flex gap-2 mb-4 overflow-auto pb-2 scroll-hide">
+                    <button class="filter-chip active" onclick="filterPosts(event, 'all')">🌍 Tümü</button>
+                    <button class="filter-chip" onclick="filterPosts(event, 'achievement')">🏆 Başarılar</button>
+                    <button class="filter-chip" onclick="filterPosts(event, 'desk')">🖥️ Masa Düzenleri</button>
+                    <button class="filter-chip" onclick="filterPosts(event, 'question')">❓ Soru-Cevap</button>
+                </div>
+
+                <!-- Yükleniyor Göstergesi -->
+                <div id="loadingSpinner" class="text-center py-5 d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Yükleniyor...</span>
+                    </div>
+                </div>
+
+                <!-- Akış Konteyneri -->
+                <div id="feedContainer" class="feed-anim-wrapper">
+                    <!-- JS ile doldurulacak -->
+                </div>
+
+                <!-- Daha Fazla Yükle Butonu -->
+                <div class="text-center mt-4 mb-5">
+                    <button class="btn btn-soft-secondary rounded-pill px-4" onclick="loadMorePosts()">
+                        Daha Fazla Göster <i class="bi bi-chevron-down ms-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SAĞ PANEL: Sosyal Etkileşim & Odalar -->
+            <div class="col-lg-3 d-none d-lg-block">
+
+                <!-- Canlı Odalar -->
+                <div class="social-card p-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold mb-0">Canlı Çalışma Odaları 🔴</h6>
+                    </div>
+
+                    <div class="room-list">
+                        <div class="room-item d-flex align-items-center gap-3 mb-3 p-2 rounded hover-bg group-item">
+                            <div class="room-icon bg-soft-primary text-primary">
+                                <i class="bi bi-book"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 text-dark small fw-bold">Sessiz Kütüphane</h6>
+                                <small class="text-muted">24 Öğrenci • Sessiz</small>
+                            </div>
+                            <button class="btn btn-xs btn-outline-primary rounded-pill join-btn" onclick="joinRoom(this)">Katıl</button>
+                        </div>
+
+                        <div class="room-item d-flex align-items-center gap-3 mb-3 p-2 rounded hover-bg group-item">
+                            <div class="room-icon bg-soft-warning text-warning">
+                                <i class="bi bi-music-note-beamed"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 text-dark small fw-bold">Lo-Fi Beats</h6>
+                                <small class="text-muted">18 Öğrenci • Müzikli</small>
+                            </div>
+                            <button class="btn btn-xs btn-outline-primary rounded-pill join-btn" onclick="joinRoom(this)">Katıl</button>
+                        </div>
+                        <div class="room-item d-flex align-items-center gap-3 p-2 rounded hover-bg group-item">
+                            <div class="room-icon bg-soft-danger text-danger">
+                                <i class="bi bi-stopwatch"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 text-dark small fw-bold">Pomodoro (25/5)</h6>
+                                <small class="text-muted">8 Öğrenci • Mola: 02:00</small>
+                            </div>
+                            <button class="btn btn-xs btn-outline-primary rounded-pill join-btn" onclick="joinRoom(this)">Katıl</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Haftalık Meydan Okuma -->
+                <div class="social-card p-0 overflow-hidden mb-4">
+                    <div class="challenge-header p-4 bg-gradient-purple text-white">
+                        <span class="badge bg-white text-primary mb-2 shadow-sm">Haftalık Görev</span>
+                        <h5 class="fw-bold mb-1">Dijital Detoks</h5>
+                        <p class="small text-white-50 mb-0">Haftalık sosyal medya kullanımını %20 azalt.</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between text-muted small mb-1">
+                            <span class="fw-bold text-dark">İlerleme</span>
+                            <span class="fw-bold text-primary">%65</span>
+                        </div>
+                        <div class="progress rounded-pill mb-3 bg-light" style="height: 6px;">
+                            <div class="progress-bar bg-purple" style="width: 65%"></div>
+                        </div>
+                        <button class="btn btn-sm btn-soft-dark w-100 rounded-pill fw-semibold">Detayları Gör</button>
+                    </div>
+                </div>
+
+                <!-- Önerilen Bağlantılar -->
+                <div class="social-card p-4">
+                    <h6 class="fw-bold mb-3">Senin Gibi "Gece Kuşları"</h6>
+                    <div class="d-flex gap-2 mb-3">
+                        <img src="https://ui-avatars.com/api/?name=Ali+K&background=random" class="avatar-sm rounded-circle border" title="Ali K.">
+                        <img src="https://ui-avatars.com/api/?name=Veli+D&background=random" class="avatar-sm rounded-circle border" title="Veli D.">
+                        <img src="https://ui-avatars.com/api/?name=Seda+Y&background=random" class="avatar-sm rounded-circle border" title="Seda Y.">
+                        <div class="avatar-sm rounded-circle bg-light d-flex align-items-center justify-content-center text-muted small border fw-bold cursor-pointer">+5</div>
+                    </div>
+                    <button class="btn btn-link btn-sm text-decoration-none p-0 text-primary fw-semibold">Tümünü Gör</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/social.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+}
+
+@section Scripts {
+    <script src="~/js/social.js" asp-append-version="true"></script>
+}
